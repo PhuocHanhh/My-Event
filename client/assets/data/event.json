@@ -1,0 +1,34 @@
+[
+  {
+    "id": 101,
+    "name": "Hội nghị doanh nghiệp",
+    "image": "assets/img/events/sk2.jpg",
+    "guests": 200,
+    "location": "Khách sạn InterContinental",
+    "type": 1
+  },
+  {
+    "id": 102,
+    "name": "Lễ cưới Hoàng Gia",
+    "image": "assets/img/events/sk1.jpg",
+    "guests": 500,
+    "location": "Nhà hàng Diamond",
+    "type": 2
+  },
+  {
+    "id": 103,
+    "name": "Rock Festival 2025",
+    "image": "assets/img/events/sk3.jpg",
+    "guests": 1000,
+    "location": "Sân vận động Mỹ Đình",
+    "type": 3
+  },
+  {
+    "id": 104,
+    "name": "Hội chợ Triển lãm Sáng tạo",
+    "image": "assets/img/events/sk4.jpg",
+    "guests": 300,
+    "location": "Trung tâm triển lãm SECC",
+    "type": 4
+  }
+]

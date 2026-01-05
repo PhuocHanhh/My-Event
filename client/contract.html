@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Tạo Hợp Đồng</title>
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        h6 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            background-color: #718355 !important;
+            color: #ffffff !important;
+            border: none !important;
+        }
+
+        .btn:hover {
+            background-color: #e9f5db !important;
+            color: #718355 !important;
+            font-weight: bold;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .modal-dialog {
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        .modal-content {
+            border: none;
+        }
+
+        .card {
+            background-color: #fff;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #timelineTable th:nth-child(1),
+        #timelineTable td:nth-child(1) {
+            width: 30%;
+            /* Cột Ngày */
+        }
+
+        #timelineTable th:nth-child(2),
+        #timelineTable td:nth-child(2) {
+            width: 70%;
+        }
+
+        .location-form {
+            display: none;
+        }
+
+        .location-form.active {
+            display: block;
+        }
+
+        .date-input-group {
+            position: relative;
+        }
+
+        .date-input-group input[type="text"] {
+            padding-right: 40px;
+        }
+
+        .date-input-group .calendar-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .date-input-group input[type="date"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Style cho modal chọn mục */
+        .item-selection-modal .modal-dialog {
+            max-width: 900px;
+        }
+
+        .item-selection-modal .item-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .item-selection-modal .item-card:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .item-selection-modal .item-card.selected {
+            border: 3px solid #718355;
+            background-color: #e9f5db;
+        }
+
+        .item-selection-modal .item-card .card {
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-selection-modal .item-card .card-img-top {
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .item-selection-modal .item-card .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .item-selection-modal .item-card .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .item-selection-modal .item-card .card-text {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .item-selection-modal .item-card .quantity-input {
+            width: 80px;
+            margin-top: 10px;
+        }
+
+        .item-selection-modal .selected-count {
+            font-size: 0.9rem;
+            color: #718355;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal fade" id="contractModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title fw-bold text-center w-100">TẠO HỢP ĐỒNG TỔ CHỨC SỰ KIỆN</h4>
+                    <button type="button" class="btn-close" onclick="closeModal()" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card m-4">
+                        <h5 class="fw-bold text-center mt-3">THÔNG TIN HỢP ĐỒNG</h5>
+                        <div class="row g-3 p-3">
+                            <!-- <div class="col-12">
+                                <label class="form-label">Tên hợp đồng <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="contractName"
+                                    placeholder="Nhập tên hợp đồng" required>
+                            </div> -->
+                            <div class="col-md-6">
+                                <label class="form-label">Tên hợp đồng <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="contractName"
+                                    placeholder="Nhập tên hợp đồng" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eventType" class="form-label">Loại sự kiện <span
+                                        class="text-danger">*</span></label>
+                                <select id="eventType" class="form-control">
+                                    <option value="">Loại sự kiện</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="customerName" class="form-label">Tên khách hàng <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="customerName"
+                                    placeholder="Nhập tên khách hàng" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phoneNumber" class="form-label">Số điện thoại <span
+                                        class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Thời gian tổ chức <span class="text-danger">*</span>
+                                </label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="date-input-group w-100">
+                                        <input type="text" class="form-control" id="startDateDisplay"
+                                            placeholder="dd/mm/yyyy" required>
+                                        <i class="bi bi-calendar calendar-icon"></i>
+                                        <input type="date" id="startDate">
+                                    </div>
+                                    <span>→</span>
+                                    <div class="date-input-group w-100">
+                                        <input type="text" class="form-control" id="endDateDisplay"
+                                            placeholder="dd/mm/yyyy" required>
+                                        <i class="bi bi-calendar calendar-icon"></i>
+                                        <input type="date" id="endDate">
+                                    </div>
+                                </div>
+                                <div id="dateError" class="text-danger mt-1" style="display: none;"></div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Địa chỉ <span class="text-danger">*</span></label>
+                                <div class="row g-2">
+                                    <div class="col-md-3">
+                                        <select class="form-select" id="province" onchange="updateDistricts()" required>
+                                            <option value="">Tỉnh/Thành</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select" id="district" onchange="updateWards()" required>
+                                            <option value="">Quận/Huyện</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select" id="ward" required>
+                                            <option value="">Xã/Phường</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" id="addressDetail"
+                                            placeholder="Số nhà, tên đường" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 Prefeitura">
+                                <label for="contractDate" class="form-label">Ngày tạo hợp đồng</label>
+                                <input type="date" class="form-control" id="contractDate" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card m-4 p-3">
+                        <h5 class="fw-bold text-center mb-4">THIẾT BỊ</h5>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary"
+                                onclick="openItemSelectionModal('device')">Thêm thiết bị</button>
+                        </div>
+                        <table class="table table-bordered" id="deviceTable">
+                            <thead>
+                                <tr>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên</th>
+                                    <th>Mô tả</th>
+                                    <th>Nhà cung cấp</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thành tiền</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deviceTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="card m-4 p-3">
+                        <h5 class="fw-bold text-center mb-4">DỊCH VỤ</h5>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary"
+                                onclick="openItemSelectionModal('service')">Thêm dịch vụ</button>
+                        </div>
+                        <table class="table table-bordered" id="serviceTable">
+                            <thead>
+                                <tr>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên</th>
+                                    <th>Mô tả</th>
+                                    <th>Nhà cung cấp</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thành tiền</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="serviceTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="card m-4 p-3">
+                        <h5 class="fw-bold text-center mb-4">ĐỊA ĐIỂM</h5>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="locationOption" id="providerLocation"
+                                    value="provider" checked onchange="toggleLocationForm()">
+                                <label class="form-check-label" for="providerLocation">Sử dụng địa điểm tổ chức do chúng
+                                    tôi cung cấp</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="locationOption" id="customerLocation"
+                                    value="customer" onchange="toggleLocationForm()">
+                                <label class="form-check-label" for="customerLocation">Sử dụng địa điểm tổ chức của
+                                    bạn</label>
+                            </div>
+                        </div>
+                        <div class="location-form" id="providerLocationForm">
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-primary"
+                                    onclick="openItemSelectionModal('location')">Thêm địa điểm</button>
+                            </div>
+                            <table class="table table-bordered" id="locationTable">
+                                <thead>
+                                    <tr>
+                                        <th>Hình ảnh</th>
+                                        <th>Tên địa điểm</th>
+                                        <th>Nhà cung cấp</th>
+                                        <th>Từ ngày</th>
+                                        <th>Đến ngày</th>
+                                        <th>Số ngày thuê</th>
+                                        <th>Đơn giá (VND/Ngày)</th>
+                                        <th>Thành tiền (VND)</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="locationTableBody"></tbody>
+                            </table>
+                        </div>
+                        <div class="location-form" id="customerLocationForm">
+                            <div class="row g-3">
+                                <!-- <div class="col-md-6">
+                                    <label for="customLocationName" class="form-label">Tên địa điểm <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="customLocationName"
+                                        placeholder="Nhập tên địa điểm" required>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <label for="customLocationAddress" class="form-label">Địa chỉ <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="customLocationAddress"
+                                        placeholder="Nhập địa chỉ cụ thể" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Thời gian sử dụng <span
+                                            class="text-danger">*</span></label>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="date-input-group w-100">
+                                            <input type="text" class="form-control" id="customStartDateDisplay"
+                                                placeholder="dd/mm/yyyy" required>
+                                            <i class="bi bi-calendar calendar-icon"></i>
+                                            <input type="date" id="customStartDate">
+                                        </div>
+                                        <span>→</span>
+                                        <div class="date-input-group w-100">
+                                            <input type="text" class="form-control" id="customEndDateDisplay"
+                                                placeholder="dd/mm/yyyy" required>
+                                            <i class="bi bi-calendar calendar-icon"></i>
+                                            <input type="date" id="customEndDate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card m-4 p-3">
+                        <h5 class="fw-bold text-center mb-3">LỊCH TRÌNH</h5>
+                        <div class="mb-3 d-flex gap-2">
+                            <div class="date-input-group w-50">
+                                <input type="text" class="form-control" id="timelineDateDisplay"
+                                    placeholder="dd/mm/yyyy">
+                                <i class="bi bi-calendar calendar-icon"></i>
+                                <input type="date" id="timelineDate">
+                            </div>
+                            <input type="time" class="form-control" id="timelineTime" placeholder="Giờ">
+                            <input type="text" class="form-control" id="timelineDescription" placeholder="Mô tả">
+                            <button type="button" class="btn btn-primary" onclick="addTimeline()">Thêm</button>
+                        </div>
+                        <table class="table table-bordered" id="timelineTable">
+                            <thead>
+                                <tr>
+                                    <th>Giờ</th>
+                                    <th>Mô tả</th>
+                                    <th>Ngày</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timelineTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 text-end">
+                        <h6 class="fw-bold">Tổng tiền: <span id="totalCost">0 VNĐ</span></h6>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="saveContract()">Lưu hợp đồng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal chọn mục -->
+    <div class="modal fade item-selection-modal" id="itemSelectionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="itemSelectionTitle">Chọn mục</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row gy-4" id="itemSelectionContainer"></div>
+                </div>
+                <div class="modal-footer">
+                    <span class="selected-count" id="selectedCount">Đã chọn: 0 mục</span>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmItemSelection()">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/js/contract.js"></script>
+</body>
+
+</html>

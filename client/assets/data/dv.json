@@ -1,0 +1,288 @@
+{
+    "event_type": [
+        { "id": 1, "name": "Hội nghị-Hội thảo" },
+        { "id": 2, "name": "Đám cưới" },
+        { "id": 3, "name": "Sinh nhật" },
+        { "id": 4, "name": "Khai trương" },
+        { "id": 5, "name": "Tất niên" }
+    ],
+    "device_type": [
+        { "id": 1, "name": "Âm thanh" },
+        { "id": 2, "name": "Ánh sáng" },
+        { "id": 3, "name": "Máy chiếu" },
+        { "id": 4, "name": "Trang trí" }
+    ],
+    "cities": [
+        { "id": 1, "name": "Hà Nội" },
+        { "id": 2, "name": "TP. Hồ Chí Minh" },
+        { "id": 3, "name": "Đà Nẵng" }
+    ],
+    "event": [
+        {
+            "id": 1,
+            "name": "Hội nghị Doanh nghiệp",
+            "img": "assets/img/events/sk2.jpg",
+            "description": "Hội nghị chuyên nghiệp dành cho doanh nghiệp.",
+            "guests": 200,
+            "location": "Khách sạn InterContinental",
+            "city_id": 1,
+            "event_type_id": 1,
+            "images": ["assets/img/events/sk2.jpg", "assets/img/events/sk2-1.jpg"],
+            "timeline": ["9:00 - Khai mạc", "10:00 - Thảo luận", "12:00 - Kết thúc"],
+            "device": [
+                {
+                    "name": "Máy chiếu",
+                    "image": "assets/img/device/projector.jpg",
+                    "description": "Máy chiếu Full HD",
+                    "supplier": "Công ty ABC",
+                    "quantity": 2,
+                    "unitPrice": 500000,
+                    "device_type_id": 3,
+                    "city_id": 1
+                }
+            ],
+            "service": [
+                {
+                    "name": "MC chuyên nghiệp",
+                    "image": "assets/img/services/mc.jpg",
+                    "description": "Dẫn chương trình chuyên nghiệp",
+                    "supplier": "Công ty XYZ",
+                    "quantity": 1,
+                    "unitPrice": 1000000,
+                    "city_id": 1
+                }
+            ],
+            "location": [
+                {
+                    "name": "Khách sạn InterContinental",
+                    "image": "assets/img/location/hoinghi.jpg",
+                    "supplier": "InterContinental",
+                    "fromDate": "2025-06-01",
+                    "toDate": "2025-06-01",
+                    "unitPrice": 5000000,
+                    "city_id": 1
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Lễ cưới Hoàng Gia",
+            "img": "assets/img/events/sk1.jpg",
+            "description": "Lễ cưới sang trọng theo phong cách hoàng gia.",
+            "guests": 500,
+            "location": "Nhà hàng Diamond",
+            "city_id": 2,
+            "event_type_id": 2,
+            "images": ["assets/img/events/sk1.jpg", "assets/img/events/sk1-1.jpg"],
+            "timeline": ["18:00 - Đón khách", "19:00 - Lễ cưới", "21:00 - Tiệc tối"],
+            "device": [
+                {
+                    "name": "Đèn sân khấu",
+                    "image": "assets/img/device/densk.png",
+                    "description": "Hệ thống đèn LED hiện đại",
+                    "supplier": "Công ty XYZ",
+                    "quantity": 4,
+                    "unitPrice": 300000,
+                    "device_type_id": 2,
+                    "city_id": 2
+                }
+            ],
+            "service": [
+                {
+                    "name": "Ca sĩ biểu diễn",
+                    "image": "assets/img/services/casi.png",
+                    "description": "Biểu diễn trong lễ cưới",
+                    "supplier": "Công ty ABC",
+                    "quantity": 1,
+                    "unitPrice": 2000000,
+                    "city_id": 2
+                }
+            ],
+            "location": [
+                {
+                    "name": "Nhà hàng Diamond",
+                    "image": "assets/img/location/nhahang.jpg",
+                    "supplier": "Diamond Group",
+                    "fromDate": "2025-07-15",
+                    "toDate": "2025-07-15",
+                    "unitPrice": 10000000,
+                    "city_id": 2
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Sinh nhật lần thứ 18",
+            "img": "assets/img/events/sinhnhat.jpg",
+            "description": "Tiệc sinh nhật hoành tráng cho tuổi 18.",
+            "guests": 50,
+            "location": "Quán cà phê Starlight",
+            "city_id": 3,
+            "event_type_id": 3,
+            "images": ["assets/img/events/sinhnhat.jpg"],
+            "timeline": ["19:00 - Đón khách", "20:00 - Cắt bánh", "22:00 - Kết thúc"],
+            "device": [
+                {
+                    "name": "Loa Bluetooth",
+                    "image": "assets/img/device/loa_bt.jpg",
+                    "description": "Loa nhỏ gọn cho tiệc sinh nhật",
+                    "supplier": "Công ty ABC",
+                    "quantity": 1,
+                    "unitPrice": 200000,
+                    "device_type_id": 1,
+                    "city_id": 3
+                }
+            ],
+            "service": [],
+            "location": [
+                {
+                    "name": "Quán cà phê Starlight",
+                    "image": "assets/img/location/cafe.jpg",
+                    "supplier": "Starlight Group",
+                    "fromDate": "2025-08-01",
+                    "toDate": "2025-08-01",
+                    "unitPrice": 2000000,
+                    "city_id": 3
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Khai trương Showroom",
+            "img": "assets/img/events/khaitruong.jpg",
+            "description": "Lễ khai trương showroom ô tô cao cấp.",
+            "guests": 100,
+            "location": "Showroom VinFast",
+            "city_id": 1,
+            "event_type_id": 4,
+            "images": ["assets/img/events/khaitruong.jpg"],
+            "timeline": ["9:00 - Khai mạc", "10:00 - Cắt băng khánh thành", "12:00 - Tiệc nhẹ"],
+            "device": [
+                {
+                    "name": "Băng rôn",
+                    "image": "assets/img/device/bangron.jpg",
+                    "description": "Băng rôn trang trí lễ khai trương",
+                    "supplier": "Công ty XYZ",
+                    "quantity": 2,
+                    "unitPrice": 500000,
+                    "device_type_id": 4,
+                    "city_id": 1
+                }
+            ],
+            "service": [
+                {
+                    "name": "Đội múa lân",
+                    "image": "assets/img/services/mualan.jpg",
+                    "description": "Biểu diễn múa lân khai trương",
+                    "supplier": "Công ty ABC",
+                    "quantity": 1,
+                    "unitPrice": 3000000,
+                    "city_id": 1
+                }
+            ],
+            "location": [
+                {
+                    "name": "Showroom VinFast",
+                    "image": "assets/img/location/showroom.jpg",
+                    "supplier": "VinFast",
+                    "fromDate": "2025-09-05",
+                    "toDate": "2025-09-05",
+                    "unitPrice": 5000000,
+                    "city_id": 1
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Tiệc Tất niên Công ty",
+            "img": "assets/img/events/tatnien.jpg",
+            "description": "Tiệc tất niên ấm cúng cho nhân viên công ty.",
+            "guests": 300,
+            "location": "Nhà hàng Golden Palace",
+            "city_id": 2,
+            "event_type_id": 5,
+            "images": ["assets/img/events/tatnien.jpg"],
+            "timeline": ["18:00 - Đón khách", "19:00 - Phát biểu", "20:00 - Tiệc tối"],
+            "device": [
+                {
+                    "name": "Màn hình LED",
+                    "image": "assets/img/device/led.jpg",
+                    "description": "Màn hình lớn cho trình chiếu",
+                    "supplier": "Công ty ABC",
+                    "quantity": 1,
+                    "unitPrice": 2000000,
+                    "device_type_id": 3,
+                    "city_id": 2
+                }
+            ],
+            "service": [
+                {
+                    "name": "Ban nhạc acoustic",
+                    "image": "assets/img/services/bannhac.jpg",
+                    "description": "Biểu diễn nhạc sống",
+                    "supplier": "Công ty XYZ",
+                    "quantity": 1,
+                    "unitPrice": 2500000,
+                    "city_id": 2
+                }
+            ],
+            "location": [
+                {
+                    "name": "Nhà hàng Golden Palace",
+                    "image": "assets/img/location/nhahang2.jpg",
+                    "supplier": "Golden Palace",
+                    "fromDate": "2025-12-20",
+                    "toDate": "2025-12-20",
+                    "unitPrice": 8000000,
+                    "city_id": 2
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Hội thảo Khởi nghiệp",
+            "img": "assets/img/events/sk3.jpg",
+            "description": "Hội thảo dành cho các startup và nhà đầu tư.",
+            "guests": 150,
+            "location": "Trung tâm Hội nghị Quốc gia",
+            "city_id": 1,
+            "event_type_id": 1,
+            "images": ["assets/img/events/sk2.jpg", "assets/img/events/sk3.jpg"],
+            "timeline": ["8:30 - Đón khách", "9:00 - Bắt đầu hội thảo", "11:30 - Giao lưu & Kết thúc"],
+            "device": [
+                {
+                    "name": "Micro không dây",
+                    "image": "assets/img/device/micro.jpg",
+                    "description": "Micro chất lượng cao cho hội thảo",
+                    "supplier": "Công ty ABC",
+                    "quantity": 3,
+                    "unitPrice": 200000,
+                    "device_type_id": 1,
+                    "city_id": 1
+                }
+            ],
+            "service": [
+                {
+                    "name": "Người dẫn chương trình",
+                    "image": "assets/img/services/mc.jpg",
+                    "description": "Dẫn chương trình cho hội thảo",
+                    "supplier": "Công ty XYZ",
+                    "quantity": 1,
+                    "unitPrice": 800000,
+                    "city_id": 1
+                }
+            ],
+            "location": [
+                {
+                    "name": "Trung tâm Hội nghị Quốc gia",
+                    "image": "assets/img/location/trungtam.jpg",
+                    "supplier": "TT Hội nghị Quốc gia",
+                    "fromDate": "2025-10-05",
+                    "toDate": "2025-10-05",
+                    "unitPrice": 7000000,
+                    "city_id": 1
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Danh sách - MyEvent</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../client/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../client/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../client/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../client/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../client/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/service.css" rel="stylesheet">
+    <style>
+        .real-estate .card {
+            background-color: var(--background-color);
+            color: var(--default-color);
+            border: none;
+            position: relative;
+            border-radius: 0px;
+            overflow: hidden;
+            min-height: 350px;
+        }
+
+        .real-estate .card:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 25%, rgba(0, 0, 0, 0.9) 75%);
+            z-index: 2;
+        }
+
+        .real-estate .card img {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .real-estate .card .card-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            padding: 30px;
+        }
+
+        .real-estate .card .card-body .sale-rent {
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--contrast-color);
+            padding: 4px 20px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50px;
+            margin-bottom: 10px;
+        }
+
+        .real-estate .card .card-body h3 {
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 0px;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .real-estate .card .card-body h3 a {
+            color: var(--contrast-color);
+        }
+
+        .real-estate .card .card-body .card-content {
+            background-color: var(--accent-color);
+            color: var(--contrast-color);
+            height: 80px;
+            visibility: hidden;
+            opacity: 0;
+            margin-top: 10px;
+            margin-bottom: -80px;
+            margin-left: -30px;
+            margin-right: -30px;
+            transition: 0.3s;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .real-estate .card .card-body .card-content .propery-info {
+            font-weight: 500;
+        }
+
+        .real-estate .card:hover .card-content {
+            margin-bottom: -30px;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .filter-section .btn-register {
+            background-color: #718355;
+            color: white;
+            padding: 6px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .filter-section .btn-register:hover {
+            background-color: #e9f5db;
+            color: #718355;
+            font-weight: bold;
+        }
+
+        .floating-register-btn {
+            position: fixed;
+            bottom: 210px;
+            right: 20px;
+            background-color: #718355;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 8px;
+            cursor: pointer;
+            display: none;
+            /* Ẩn mặc định, hiển thị khi cuộn */
+            z-index: 1000;
+            transition: all 0.3s ease;
+            writing-mode: vertical-rl;
+        }
+
+        .floating-register-btn:hover {
+            background-color: #e9f5db;
+            color: #718355;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-register-btn i {
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .floating-register-btn.visible {
+            display: block;
+        }
+
+        .scroll-top {
+            bottom: 20px;
+            right: 30px;
+        }
+
+        .service-details .service-box {
+            background-color: var(--surface-color);
+            padding: 20px;
+            box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-details .service-box h4 {
+            font-size: 20px;
+            font-weight: 700;
+            border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .service-details .services-list {
+            background-color: var(--surface-color);
+        }
+
+        .service-details .services-list a {
+            color: color-mix(in srgb, var(--default-color), transparent 20%);
+            background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-top: 15px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .service-details .services-list a:first-child {
+            margin-top: 0;
+        }
+
+        .service-details .services-list a i {
+            font-size: 16px;
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+
+        .service-details .services-list a.active {
+            color: var(--contrast-color);
+            background-color: var(--accent-color);
+        }
+
+        .service-details .services-list a.active i {
+            color: var(--contrast-color);
+        }
+
+        .service-details .services-list a:hover {
+            background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+            color: var(--accent-color);
+        }
+
+        .pagination {
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .page-item.active .page-link {
+            background-color: #718355;
+            border-color: #718355;
+            color: white;
+        }
+
+        .page-link {
+            color: #718355;
+        }
+
+        .page-link:hover {
+            background-color: #e9f5db;
+            color: #718355;
+        }
+    </style>
+</head>
+
+<body class="properties-page">
+    <div id="header"></div>
+    <main class="main">
+        <div class="container mt-5 py-4">
+            <div class="row">
+                <!-- danh mục -->
+                <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="filter-section mb-4">
+                        <button class="btn-register w-100" onclick="checkLoginAndOpenContract()">Đăng ký tổ chức sự
+                            kiện</button>
+                    </div>
+                    <div class="service-details">
+                        <div class="service-box">
+                            <h4 id="category-title">Danh mục</h4>
+                            <div class="services-list" id="services-list"></div>
+                        </div>
+                    </div>
+                    <div class="help-box d-flex flex-column justify-content-center align-items-center">
+                        <i class="bi bi-headset help-icon"></i>
+                        <h4>Bạn cần hỗ trợ?</h4>
+                        <p class="d-flex align-items-center mt-2 mb-0"><i class="bi bi-telephone me-2"></i>
+                            <span>0819901400</span>
+                        </p>
+                        <p class="d-flex align-items-center mt-1 mb-0"><i class="bi bi-envelope me-2"></i> <a
+                                href="mailto:contact@example.com">myevent@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="filter-section mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm..."
+                                    onkeyup="filterItems()">
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control" id="cityFilter" onchange="filterItems()">
+                                    <option value="">Tất cả tỉnh</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <section id="real-estate" class="real-estate section">
+                        <div class="container">
+                            <div class="row gy-4" id="item-container"></div>
+                        </div>
+                    </section> -->
+                    <section id="real-estate" class="real-estate section">
+                        <div class="container">
+                            <div class="row gy-4" id="item-container"></div>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination" id="pagination"></ul>
+                            </nav>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div id="contractPopup" class="popup">
+            <div id="contractFormContent"></div>
+        </div>
+    </main>
+    <div id="footer"></div>
+    <div class="modal fade" id="iframeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <iframe id="contractIframe" style="width: 100%; height: 600px; border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
+    <button class="floating-register-btn" onclick="checkLoginAndOpenContract()">
+        Đăng Ký Ngay
+    </button>
+    <script src="../client/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../client/assets/vendor/aos/aos.js"></script>
+    <script src="../client/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="../client/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="../client/assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/service.js"></script>
+</body>
+
+</html>

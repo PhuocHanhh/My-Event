@@ -1,0 +1,16 @@
+{
+    "device": [
+        {
+            "id": 1,
+            "name": "Loa JBL Pro",
+            "description": "Loa công suất lớn, phù hợp cho sự kiện ngoài trời.",
+            "image": "assets/img/devices/loa.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Màn hình LED 4K",
+            "description": "Màn hình LED hiển thị sắc nét, kích thước linh hoạt.",
+            "image": "assets/img/devices/led.jpg"
+        }
+    ]
+}

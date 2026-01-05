@@ -1,0 +1,63 @@
+/* Custom styles based on MyContractDetailStyle */
+.ribbon {
+    position: relative;
+}
+
+.ribbon .ribbon-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.ribbon .ribbon-text {
+    position: absolute;
+    padding: 0.1em 2em;
+    z-index: 99;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 14px;
+    pointer-events: auto;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 3px;
+    color: rgb(240, 240, 240);
+    top: 0;
+    right: 0;
+    transform: translateY(-100%) rotate(90deg) translateX(70.7107%) rotate(-45deg);
+    transform-origin: right bottom;
+}
+
+.ribbon .ribbon-text.bg-black {
+    background-color: black;
+}
+
+.ribbon .ribbon-text.bg-red {
+    background-color: red;
+}
+
+.ribbon .ribbon-text.bg-green-600 {
+    background-color: #34d399;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #fefeff;
+}
+
+#uploadedContractPreview img, #uploadedContractPreview embed {
+    max-width: 100%;
+    margin-top: 10px;
+}

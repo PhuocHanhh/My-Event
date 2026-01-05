@@ -1,0 +1,367 @@
+<!-- Live reload disabled -->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Chat Hỗ Trợ - MyEvent</title>
+    <meta name="description" content="Hỗ trợ tổ chức sự kiện với MyEvent">
+    <meta name="keywords" content="tổ chức sự kiện, MyEvent, chat hỗ trợ">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/home.css">
+
+    <!-- Custom CSS -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--default-font);
+            background: #cfe1b9;
+            color: var(--default-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            margin-top: 0 !important;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .header {
+            padding: 15px 0;
+            min-height: 50px;
+            width: 100%;
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            background-color: var(--background-color);
+        }
+
+        .chat-container {
+            width: 100%;
+            height: calc(100vh - 50px - 80px);
+            margin: 60px 0 80px 0;
+            background-color: #cfe1b9;
+            border-radius: 0;
+            padding: 10px;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-title {
+            font-family: var(--heading-font);
+            color: var(--heading-color);
+            font-size: 24px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-top: 20px;
+            font-weight: bold;
+        }
+
+        .chat-subtitle {
+            font-size: 16px;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .chat-box {
+            background-color: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 10px;
+            flex: 1;
+            overflow-y: auto;
+            /* border: 1px solid #e0e0e0; */
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color) #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+
+        .chat-message {
+            display: inline-block;
+            background-color: #f1f3f5;
+            border-radius: 12px;
+            padding: 10px 15px;
+            margin: 5px 0;
+            max-width: 70%;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-message.bot {
+            background: #fff;
+            margin-right: auto;
+            margin-left: 5px;
+        }
+
+        .chat-message.user {
+            background: #718355;
+            margin-left: auto;
+            margin-right: 5px;
+            color: #000;
+        }
+
+        .chat-message .sender {
+            color: #000;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .chat-message .timestamp {
+            font-size: 12px;
+            color: #000;
+            margin-top: 5px;
+            text-align: right;
+            display: block;
+        }
+
+        .typing-indicator {
+            display: none;
+            font-size: 14px;
+            color: #000;
+            text-align: center;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        .chat-input {
+            position: fixed;
+            bottom: 10px;
+            padding: 5px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #fff;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            z-index: 1000;
+            flex-wrap: nowrap;
+            box-sizing: border-box;
+        }
+
+        .chat-input textarea {
+            padding: 5px;
+            flex: 1;
+            min-width: 0;
+            border: 1px solid #b8c6db;
+            border-radius: 8px;
+            resize: none;
+            font-family: var(--default-font);
+            font-size: 14px;
+            rows: 1;
+        }
+
+        .chat-input textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(113, 131, 85, 0.1);
+        }
+
+        .chat-input button {
+            background: #718355;
+            color: var(--contrast-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--default-font);
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .chat-input button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .chat-input button:disabled {
+            background: #718355;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .chat-input .mic-btn {
+            /* padding: 8px; */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .chat-input .mic-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .chat-input .mic-btn i {
+            color: var(--contrast-color);
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                padding: 10px;
+                margin-bottom: 90px;
+            }
+
+            .chat-title {
+                font-size: 24px;
+            }
+
+            .chat-box {
+                min-height: 250px;
+            }
+
+            .chat-input {
+                flex-wrap: nowrap;
+                bottom: 5px;
+                left: 5px;
+                right: 5px;
+                padding: 5px;
+                gap: 5px;
+            }
+
+            .chat-input textarea {
+                font-size: 14px;
+            }
+
+            .chat-input button,
+            .chat-input .mic-btn {
+                padding: 8px;
+            }
+
+            .chat-input button {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        .event-type-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-start;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .event-type-btn {
+            background: #fff;
+            color: rgb(33, 44, 35);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--default-font);
+            font-size: 16px;
+        }
+
+        .event-type-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-type-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <main class="chat-container" data-aos="fade-up">
+        <h1 class="chat-title">Hỗ Trợ Tổ Chức Sự Kiện</h1>
+        <p class="chat-subtitle">MyEvent - Chuyên nghiệp & Sáng tạo</p>
+        <div class="chat-box" id="chat-box">
+            <div class="chat-message bot">
+                <span class="sender">MyEvent AI</span>
+                Xin chào bạn!
+                <div class="timestamp"></div>
+            </div>
+        </div>
+        <div class="typing-indicator" id="typing-indicator">MyEvent AI đang trả lời...</div>
+        <div class="chat-input">
+            <textarea rows="2" id="chat-input" placeholder="Nội dung bạn nhập sẽ hiển thị ở đây..."></textarea>
+            <button id="send-btn" type="button">Gửi</button>
+            <button class="mic-btn" id="mic-btn"><i class="bi bi-mic-fill"></i></button>
+        </div>
+    </main>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="/client/assets/js/header.js"></script>
+    <script type="module" src="assets/js/chatAI.js"></script>
+</body>
+
+</html>

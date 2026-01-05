@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Hợp Đồng</title>
+  <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="./assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #000;
+    }
+
+    .content {
+      margin-top: 100px;
+      flex: 1;
+    }
+
+    .contract-details,
+    .contract-items,
+    .contract-draft {
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .contract-items img,
+    .contract-draft img {
+      width: 50px;
+      height: auto;
+    }
+
+    #timelineTable th:nth-child(1),
+    #timelineTable td:nth-child(1) {
+      width: 30%;
+    }
+
+    #footer {
+      background-color: #e6f0e6;
+      width: 100%;
+    }
+
+    .contract-draft .draft-content {
+      border: 1px solid #000;
+      padding: 20px;
+    }
+
+    .contract-draft table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .contract-draft th,
+    .contract-draft td {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .contract-draft .service-table th,
+    .contract-draft .service-table td {
+      text-align: center;
+    }
+
+    .contract-draft .party-info p {
+      margin-bottom: 5px;
+    }
+
+    .contract-draft {
+      display: none;
+    }
+
+    .contract-draft.show {
+      display: block !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header"></div>
+  <div class="content container">
+    <h2 class="text-center mb-4">CHI TIẾT HỢP ĐỒNG</h2>
+    <div class="contract-details bg-white p-4 mb-4">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th scope="row" class="fw-bold" style="width: 30%;">Tên hợp đồng</th>
+            <td id="contractName"></td>
+          </tr>
+          <tr>
+            <th scope="row" class="fw-bold">Thời gian hợp đồng</th>
+            <td>
+              Ngày bắt đầu: <span id="startDate"></span><br>
+              Ngày kết thúc: <span id="endDate"></span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="fw-bold">Giá trị hợp đồng</th>
+            <td id="totalPrice"></td>
+          </tr>
+          <tr>
+            <th scope="row" colspan="2" class="fw-bold">Thông tin khách hàng</th>
+          </tr>
+          <tr>
+            <th scope="row" class="fw-bold">Tên khách hàng</th>
+            <td id="customerName"></td>
+          </tr>
+          <tr>
+            <th scope="row" class="fw-bold">Số điện thoại</th>
+            <td id="customerPhone"></td>
+          </tr>
+          <tr>
+            <th scope="row" class="fw-bold">Địa chỉ</th>
+            <td id="customerAddress"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="contract-items bg-white p-4 mb-4">
+      <h5 class="text-center fw-bold mb-3">THIẾT BỊ</h5>
+      <table class="table table-bordered text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Hình ảnh</th>
+            <th>Tên</th>
+            <th>Mô tả</th>
+            <th>Nhà cung cấp</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody id="deviceTableBody"></tbody>
+      </table>
+    </div>
+    <div class="contract-items bg-white p-4 mb-4">
+      <h5 class="text-center fw-bold mb-3">DỊCH VỤ</h5>
+      <table class="table table-bordered text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Hình ảnh</th>
+            <th>Tên</th>
+            <th>Mô tả</th>
+            <th>Nhà cung cấp</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody id="serviceTableBody"></tbody>
+      </table>
+    </div>
+    <div class="contract-items bg-white p-4 mb-4">
+      <h5 class="text-center fw-bold mb-3">ĐỊA ĐIỂM</h5>
+      <table class="table table-bordered text-center">
+        <thead class="table-light">
+          <tr>
+            <th>Hình ảnh</th>
+            <th>Tên địa điểm</th>
+            <th>Nhà cung cấp</th>
+            <th>Từ ngày</th>
+            <th>Đến ngày</th>
+            <th>Số ngày thuê</th>
+            <th>Đơn giá (VND/Ngày)</th>
+            <th>Thành tiền (VND)</th>
+          </tr>
+        </thead>
+        <tbody id="locationTableBody"></tbody>
+      </table>
+    </div>
+    <div class="contract-items bg-white p-4 mb-4">
+      <h5 class="text-center fw-bold mb-3">LỊCH TRÌNH</h5>
+      <table class="table table-bordered" id="timelineTable">
+        <thead class="table-light">
+          <tr>
+            <th>Thời gians</th>
+            <th>Mô tả</th>
+          </tr>
+        </thead>
+        <tbody id="timelineTableBody"></tbody>
+      </table>
+    </div>
+    <div class="text-center mb-4">
+      <button id="showDraftButton" class="btn btn-primary">Xem Bản Thảo Hợp Đồng</button>
+      <button id="exportDraftButton" class="btn btn-success" style="display: none;">Xuất File Word</button>
+    </div>
+    <div class="contract-draft bg-white p-4 mb-4">
+      <h5 class="text-center fw-bold mb-3">BẢN THẢO VĂN BẢN HỢP ĐỒNG</h5>
+      <div class="draft-content">
+        <div class="text-center mb-3">
+          <p class="fw-bold">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+          <p class="fw-bold text-decoration-underline">Độc lập - Tự do - Hạnh phúc</p>
+        </div>
+        <div class="text-center mb-4">
+          <h4 class="fw-bold">HỢP ĐỒNG DỊCH VỤ</h4>
+        </div>
+        <div class="mb-4">
+          <ul class="list-unstyled">
+            <li><i>- Căn cứ Bộ luật dân sự 2015;</i></li>
+            <li><i>- Căn cứ sự thỏa thuận của 2 bên;</i></li>
+          </ul>
+          <p>Hôm nay, ngày <span id="draftDate"></span>, chúng tôi gồm:</p>
+        </div>
+        <div class="mb-4 party-info">
+          <p class="fw-bold">BÊN THUÊ DỊCH VỤ (sau đây gọi là Bên A)</p>
+          <p><span class="fw-bold">TÊN</span>: <span id="draftCustomerName"></span></p>
+          <p><span class="fw-bold">ĐỊA CHỈ</span>: <span id="draftCustomerAddress"></span></p>
+          <p><span class="fw-bold">SỐ ĐIỆN THOẠI</span>: <span id="draftCustomerPhone"></span></p>
+        </div>
+        <div class="mb-4 party-info">
+          <p class="fw-bold">BÊN CHO THUÊ DỊCH VỤ (sau đây gọi là Bên B)</p>
+          <p><span class="fw-bold">TÊN CÔNG TY</span>: CÔNG TY TNHH DỊCH VỤ MYEVENT</p>
+          <p><span class="fw-bold">ĐẠI DIỆN</span>: Bà LÊ THỊ A</p>
+          <p><span class="fw-bold">CHỨC DANH</span>: GIÁM ĐỐC</p>
+          <p><span class="fw-bold">ĐỊA CHỈ</span>: K384 Điện Biên Phủ, Phường Thanh Khê Đông, Quận Thanh Khê,
+            Thành phố
+            Đà Nẵng</p>
+          <p><span class="fw-bold">SỐ ĐIỆN THOẠI</span>: 0819901400</p>
+        </div>
+        <div class="mb-4">
+          <p>Hai bên thỏa thuận ký kết hợp đồng này với các điều khoản sau:</p>
+          <div class="mt-3">
+            <p class="fw-bold text-uppercase">Điều 1: Nội dung dịch vụ thực hiện</p>
+            <p>Bên B cam kết lên kế hoạch và tổ chức sự kiện cho Bên A theo bảng danh mục bên dưới.</p>
+            <p>Tên sự kiện: <span id="draftContractName"></span></p>
+            <p>Thời gian thực hiện: Từ ngày <span id="draftStartDate"></span> đến ngày <span id="draftEndDate"></span>
+            </p>
+            <p>Địa điểm: <span id="draftLocation"></span></p>
+            <div class="service-table mt-3">
+              <p class="fw-bold text-center mb-2">Bảng danh mục các dịch vụ kèm theo của sự kiện</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên dịch vụ</th>
+                    <th>Mô tả</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá/Ngày</th>
+                    <th>Thành tiền</th>
+                  </tr>
+                </thead>
+                <tbody id="draftServiceTableBody"></tbody>
+                <tfoot>
+                  <tr>
+                    <th colspan="5">TỔNG CHI PHÍ</th>
+                    <td id="draftTotalPrice"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="service-table mt-3">
+              <p class="fw-bold text-center mb-2">Bảng danh mục thiết bị</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên thiết bị</th>
+                    <th>Mô tả</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                  </tr>
+                </thead>
+                <tbody id="draftDeviceTableBody"></tbody>
+              </table>
+            </div>
+            <div class="service-table mt-3">
+              <p class="fw-bold text-center mb-2">Bảng danh mục dịch vụ</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên dịch vụ</th>
+                    <th>Mô tả</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                  </tr>
+                </thead>
+                <tbody id="draftServiceDetailsTableBody"></tbody>
+              </table>
+            </div>
+            <div class="service-table mt-3">
+              <p class="fw-bold text-center mb-2">Bảng danh mục địa điểm</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên địa điểm</th>
+                    <th>Nhà cung cấp</th>
+                    <th>Từ ngày</th>
+                    <th>Đến ngày</th>
+                    <th>Số ngày thuê</th>
+                    <th>Đơn giá/Ngày</th>
+                    <th>Thành tiền</th>
+                  </tr>
+                </thead>
+                <tbody id="draftLocationTableBody"></tbody>
+              </table>
+            </div>
+            <div class="service-table mt-3">
+              <p class="fw-bold text-center mb-2">Bảng lịch trình dự kiến sự kiện</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Thời gian</th>
+                    <th>Mô tả</th>
+                  </tr>
+                </thead>
+                <tbody id="draftTimelineTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="mt-3">
+            <p class="fw-bold text-uppercase">Điều 2: Giá trị dịch vụ – Phương thức thanh toán</p>
+            <p>2.1 Giá trị dịch vụ: <span id="draftTotalPrice2"></span></p>
+            <p>2.2 Ngay khi Bên B thực hiện cung cấp dịch vụ theo quy định của Điều 1, hai bên sẽ thống nhất
+              và ký kết biên bản thanh lý hợp đồng trong đó có ghi rõ những hạng mục còn thiếu hoặc phát
+              sinh (nếu có).</p>
+            <p>2.3 Phương thức thanh toán: (Thanh toán bằng tiền mặt hoặc chuyển khoản)</p>
+            <ul class="list-unstyled mx-4">
+              <li>- Bên A thực hiện đặt cọc 30% giá trị hợp đồng cho Bên B.</li>
+              <li>- Bên A sẽ thanh toán 100% phần giá trị dịch vụ trong thời gian 5 ngày làm việc kể từ
+                khi kết thúc chương trình.</li>
+            </ul>
+          </div>
+          <div class="mt-3">
+            <p class="fw-bold text-uppercase">Điều 3: Thời hạn thỏa thuận</p>
+            <p>3.1 Thời gian hiệu lực hợp đồng: Từ khi bản hợp đồng được ký kết đến khi thanh toán hợp đồng.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mt-5">
+          <div class="text-center">
+            <p class="fw-bold text-uppercase">ĐẠI DIỆN BÊN A</p>
+            <p><i>(Ký tên, đóng dấu)</i></p>
+          </div>
+          <div class="text-center">
+            <p class="fw-bold text-uppercase">ĐẠI DIỆN BÊN B</p>
+            <p><i>(Ký tên, đóng dấu)</i></p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <label for="signedDocument" class="form-label">Tải lên hợp đồng đã ký (thay thế bản thảo):</label>
+        <input type="file" id="signedDocument" class="form-control" accept=".doc,.docx,.pdf">
+        <button id="uploadSignedDocument" class="btn btn-primary mt-2">Tải lên</button>
+      </div>
+    </div>
+  </div>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/header.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.min.js"></script>
+  <script>
+
+    // const mockData = {
+    //     devices: [
+    //         {
+    //             id: "1",
+    //             name: "Máy chiếu",
+    //             description: "Máy chiếu độ phân giải cao",
+    //             supplierName: "Công ty ABC",
+    //             price: 500000,
+    //             image: "assets/img/projector.jpg"
+    //         },
+    //         {
+    //             id: "2",
+    //             name: "Loa âm thanh",
+    //             description: "Loa công suất 500W",
+    //             supplierName: "Công ty XYZ",
+    //             price: 300000,
+    //             image: "assets/img/speaker.jpg"
+    //         }
+    //     ],
+    //     services: [
+    //         {
+    //             id: "1",
+    //             name: "Dịch vụ MC",
+    //             description: "MC chuyên nghiệp cho sự kiện",
+    //             supplierName: "Công ty DEF",
+    //             price: 1000000,
+    //             image: "assets/img/mc.jpg"
+    //         },
+    //         {
+    //             id: "2",
+    //             name: "Trang trí sân khấu",
+    //             description: "Trang trí theo chủ đề",
+    //             supplierName: "Công ty GHI",
+    //             price: 2000000,
+    //             image: "assets/img/stage.jpg"
+    //         }
+    //     ],
+    //     locations: [
+    //         {
+    //             id: "1",
+    //             name: "Hội trường Vinpearl",
+    //             description: "Hội trường sức chứa 500 người",
+    //             supplierName: "Vinpearl Đà Nẵng",
+    //             pricePerDay: 10000000,
+    //             image: "assets/img/hall.jpg"
+    //         }
+    //     ],
+    //     contracts: [
+    //         {
+    //             id: "1",
+    //             name: "Hợp đồng tổ chức hội nghị 2025",
+    //             total_price: 13500000,
+    //             rental_start_time: "01/06/2025",
+    //             rental_end_time: "03/06/2025",
+    //             status: "draft",
+    //             customerName: "Nguyễn Văn B",
+    //             phoneNumber: "0987654321",
+    //             provinceId: "Đà Nẵng",
+    //             districtId: "Hải Châu",
+    //             wardId: "Phước Ninh",
+    //             addressDetail: "123 Lý Tự Trọng",
+    //             devices: [
+    //                 { deviceId: "1", quantity: 2 },
+    //                 { deviceId: "2", quantity: 1 }
+    //             ],
+    //             services: [
+    //                 { serviceId: "1", quantity: 1 },
+    //                 { serviceId: "2", quantity: 1 }
+    //             ],
+    //             locations: [
+    //                 { locationId: "1", startDate: "01/06/2025", endDate: "03/06/2025" }
+    //             ],
+    //             timelines: [
+    //                 { startTime: "08:00 01/06/2025", description: "Chuẩn bị hội trường" },
+    //                 { startTime: "09:00 01/06/2025", description: "Khai mạc hội nghị" }
+    //             ]
+    //         }
+    //     ]
+    // };
+
+    const API_BASE = 'http://localhost:8080/event-management';
+    const CONTRACT_DETAIL_API = `${API_BASE}/api/contracts`;
+    const DEVICE_API = `${API_BASE}/devices`;
+    const SERVICE_API = `${API_BASE}/services`;
+    const LOCATION_API = `${API_BASE}/locations`;
+    const TIMELINE_API = `${API_BASE}/timelines`;
+    const DEVICE_RENTAL_API = `${API_BASE}/api/device-rentals`;
+    const SERVICE_RENTAL_API = `${API_BASE}/api/service-rentals`;
+    const LOCATION_RENTAL_API = `${API_BASE}/api/location-rentals`;
+    const RENTAL_API = `${API_BASE}/rentals`;
+
+    let devices = [];
+    let services = [];
+    let locations = [];
+    let currentContract = null;
+    let isSignedContractUploaded = false;
+
+    function getToken() {
+      return localStorage.getItem("token") || "mock-token";
+    }
+
+    function dinhDangTien(giaTri) {
+      return giaTri.toLocaleString("vi-VN") + " ₫";
+    }
+
+    function formatDate(date) {
+      return date || "Chưa xác định";
+    }
+
+    async function fetchData(url, method = "GET", data = null) {
+      const token = getToken();
+      const options = {
+        method: method,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      if (token) options.headers["Authorization"] = `Bearer ${token}`;
+      if (data) options.body = JSON.stringify(data);
+
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(`${method} failed! Status: ${response.status}`);
+      }
+      return response.json();
+    }
+
+    async function displayWordContent(file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const doc = await docx.load(arrayBuffer);
+        let htmlContent = "";
+
+        doc.sections.forEach(section => {
+          section.children.forEach(child => {
+            if (child instanceof docx.Paragraph) {
+              let text = "";
+              child.children.forEach(childNode => {
+                if (childNode instanceof docx.TextRun) text += childNode.text;
+              });
+              if (text.trim()) htmlContent += `<p>${text}</p>`;
+            } else if (child instanceof docx.Table) {
+              let tableHtml = "<table border='1'><thead><tr>";
+              child.headerRows[0].children.forEach(cell => {
+                let cellText = "";
+                cell.children.forEach(node => {
+                  if (node instanceof docx.TextRun) cellText += node.text;
+                });
+                tableHtml += `<th>${cellText}</th>`;
+              });
+              tableHtml += "</tr></thead><tbody>";
+              child.rows.forEach(row => {
+                tableHtml += "<tr>";
+                row.children.forEach(cell => {
+                  let cellText = "";
+                  cell.children.forEach(node => {
+                    if (node instanceof docx.TextRun) cellText += node.text;
+                  });
+                  tableHtml += `<td>${cellText}</td>`;
+                });
+                tableHtml += "</tr>";
+              });
+              tableHtml += "</tbody></table>";
+              htmlContent += tableHtml;
+            }
+          });
+        });
+
+        const draftContainer = document.querySelector(".contract-draft");
+        draftContainer.innerHTML = `
+            <h5 class="text-center fw-bold mb-3">HỢP ĐỒNG ĐÃ KÝ</h5>
+            <div class="draft-content">${htmlContent}</div>
+            <div class="mt-4">
+                <label for="signedDocument" class="form-label">Tải lên hợp đồng đã ký mới (thay thế):</label>
+                <input type="file" id="signedDocument" class="form-control" accept=".doc,.docx,.pdf">
+                <button id="uploadSignedDocument" class="btn btn-primary mt-2">Tải lên</button>
+                <label for="signedImage" class="form-label mt-3">Tải ảnh hợp đồng đã ký (để quét):</label>
+                <input type="file" id="signedImage" class="form-control" accept="image/*">
+                <button id="uploadSignedImage" class="btn btn-primary mt-2">Tải ảnh lên</button>
+            </div>
+        `;
+      } catch (error) {
+        console.error("Lỗi khi hiển thị nội dung file Word:", error);
+        alert("Không thể hiển thị nội dung file Word. Vui lòng kiểm tra định dạng file (chỉ hỗ trợ .docx).");
+      }
+    }
+
+    async function uploadFile(file, contractId) {
+      try {
+        const mockResponse = {
+          id: Date.now().toString(),
+          contractId: contractId,
+          fileUrl: `assets/uploads/${file.name}`,
+          uploadedAt: new Date().toISOString(),
+        };
+        console.log("Giả lập upload file:", mockResponse);
+        isSignedContractUploaded = true;
+
+        if (file.type === "application/msword" || file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+          await displayWordContent(file);
+        } else if (file.type === "application/pdf") {
+          const draftContainer = document.querySelector(".contract-draft");
+          draftContainer.innerHTML = `
+                <h5 class="text-center fw-bold mb-3">HỢP ĐỒNG ĐÃ KÝ</h5>
+                <p class="text-center">Hợp đồng đã được ký và tải lên: <a href="${mockResponse.fileUrl}" target="_blank">${file.name}</a></p>
+                <p class="text-center">Xem trước PDF không được hỗ trợ. Vui lòng tải xuống để xem.</p>
+                <div class="mt-4">
+                    <label for="signedDocument" class="form-label">Tải lên hợp đồng đã ký mới (thay thế):</label>
+                    <input type="file" id="signedDocument" class="form-control" accept=".doc,.docx,.pdf">
+                    <button id="uploadSignedDocument" class="btn btn-primary mt-2">Tải lên</button>
+                    <label for="signedImage" class="form-label mt-3">Tải ảnh hợp đồng đã ký (để quét):</label>
+                    <input type="file" id="signedImage" class="form-control" accept="image/*">
+                    <button id="uploadSignedImage" class="btn btn-primary mt-2">Tải ảnh lên</button>
+                </div>
+            `;
+        } else {
+          const draftContainer = document.querySelector(".contract-draft");
+          draftContainer.innerHTML = `
+                <h5 class="text-center fw-bold mb-3">HỢP ĐỒNG ĐÃ KÝ</h5>
+                <p class="text-center">Hợp đồng đã được ký và tải lên: <a href="${mockResponse.fileUrl}" target="_blank">${file.name}</a></p>
+                <div class="mt-4">
+                    <label for="signedDocument" class="form-label">Tải lên hợp đồng đã ký mới (thay thế):</label>
+                    <input type="file" id="signedDocument" class="form-control" accept=".doc,.docx,.pdf">
+                    <button id="uploadSignedDocument" class="btn btn-primary mt-2">Tải lên</button>
+                    <label for="signedImage" class="form-label mt-3">Tải ảnh hợp đồng đã ký (để quét):</label>
+                    <input type="file" id="signedImage" class="form-control" accept="image/*">
+                    <button id="uploadSignedImage" class="btn btn-primary mt-2">Tải ảnh lên</button>
+                </div>
+            `;
+        }
+
+        const newUploadButton = document.getElementById("uploadSignedDocument");
+        newUploadButton.addEventListener("click", async () => {
+          const fileInput = document.getElementById("signedDocument");
+          const file = fileInput.files[0];
+          if (!file) {
+            alert("Vui lòng chọn file để tải lên!");
+            return;
+          }
+          if (!currentContract) {
+            alert("Không có hợp đồng để liên kết với file!");
+            return;
+          }
+          const allowedTypes = [
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          ];
+          if (!allowedTypes.includes(file.type)) {
+            alert("Chỉ hỗ trợ file PDF hoặc Word!");
+            return;
+          }
+          const result = await uploadFile(file, currentContract.id);
+          if (result) {
+            alert("Tải lên hợp đồng đã ký thành công!");
+            fileInput.value = "";
+          }
+        });
+
+        const newUploadImageButton = document.getElementById("uploadSignedImage");
+        newUploadImageButton.addEventListener("click", async () => {
+          const imageInput = document.getElementById("signedImage");
+          const imageFile = imageInput.files[0];
+          if (!imageFile) {
+            alert("Vui lòng chọn ảnh để tải lên!");
+            return;
+          }
+          if (!currentContract) {
+            alert("Không có hợp đồng để liên kết với ảnh!");
+            return;
+          }
+          await processSignedImage(imageFile);
+          imageInput.value = "";
+        });
+
+        return mockResponse;
+      } catch (error) {
+        console.error(`Lỗi khi tải lên file: ${error.message}`);
+        throw error;
+      }
+    }
+
+    // async function processSignedImage(imageFile) {
+    //     try {
+    //         // Giả lập OCR (thay bằng Tesseract.js hoặc API OCR thực tế)
+    //         const mockScannedText = `
+    //     CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+    //     Độc lập - Tự do - Hạnh phúc
+    //     HỢP ĐỒNG DỊCH VỤ
+    //     - Căn cứ Bộ luật dân sự 2015;
+    //     - Căn cứ sự thỏa thuận của 2 bên;
+    //     Hôm nay, ngày 5/5/2025, chúng tôi gồm:
+    //     BÊN THUÊ DỊCH VỤ (sau đây gọi là Bên A)
+    //     TÊN: Nguyễn Văn B
+    //     ĐỊA CHỈ: 123 Lý Tự Trọng, Phước Ninh, Hải Châu, Đà Nẵng
+    //     SỐ ĐIỆN THOẠI: 0987654321
+    //     BÊN CHO THUÊ DỊCH VỤ (sau đây gọi là Bên B)
+    //     TÊN CÔNG TY: CÔNG TY TNHH DỊCH VỤ MYEVENT
+    //     ĐẠI DIỆN: Bà Lê Thị B
+    //     CHỨC DANH: GIÁM ĐỐC
+    //     ĐỊA CHỈ: K384 Điên Biên Phủ, Phường Thanh Khê Đông, Quận Thanh Khê, Thành phố Đà Nẵng
+    //     SỐ ĐIỆN THOẠI: 0819901400
+    //     Hai bên thỏa thuận ký kết hợp đồng này với các điều khoản sau:
+    //     Điều 1: Nội dung dịch vụ thực hiện
+    //     Bên B cam kết lên kế hoạch và tổ chức sự kiện cho Bên A theo bảng danh mục bên dưới.
+    //     Tên sự kiện: Hợp đồng tổ chức hội nghị 2025
+    //     Thời gian thực hiện: Từ ngày 01/06/2025 đến ngày 03/06/2025
+    //     Địa điểm: Hội trường Vinpearl
+    //     Bảng danh mục thiết bị
+    //     | STT | Tên thiết bị | Mô tả | Số lượng | Đơn giá | Thành tiền |
+    //     | 1 | Máy chiếu | Máy chiếu độ phân giải cao | 2 | 500.000 ₫ | 1.000.000 ₫ |
+    //     | 2 | Loa âm thanh | Loa công suất 500W | 1 | 300.000 ₫ | 300.000 ₫ |
+    //     Bảng danh mục dịch vụ
+    //     | STT | Tên dịch vụ | Mô tả | Số lượng | Đơn giá | Thành tiền |
+    //     | 1 | Dịch vụ MC | MC chuyên nghiệp cho sự kiện | 1 | 1.000.000 ₫ | 1.000.000 ₫ |
+    //     | 2 | Trang trí sân khấu | Trang trí theo chủ đề | 1 | 2.000.000 ₫ | 2.000.000 ₫ |
+    //     Bảng danh mục địa điểm
+    //     | STT | Tên địa điểm | Nhà cung cấp | Từ ngày | Đến ngày | Số ngày thuê | Đơn giá/Ngày | Thành tiền |
+    //     | 1 | Hội trường Vinpearl | Vinpearl Đà Nẵng | 01/06/2025 | 03/06/2025 | 3 | 10.000.000 ₫ | 30.000.000 ₫ |
+    //     Bảng lịch trình dự kiến sự kiện
+    //     | STT | Thời gian | Mô tả |
+    //     | 1 | 08:00 01/06/2025 | Chuẩn bị hội trường |
+    //     | 2 | 09:00 01/06/2025 | Khai mạc hội nghị |
+    //     Điều 2: Giá trị dịch vụ – Phương thức thanh toán
+    //     2.1 Giá trị dịch vụ: 13.500.000 ₫
+    //     2.2 Ngay khi Bên B thực hiện cung cấp dịch vụ, hai bên sẽ ký kết biên bản thanh lý hợp đồng.
+    //     2.3 Phương thức thanh toán: Thanh toán bằng tiền mặt hoặc chuyển khoản.
+    //     - Bên A thực hiện đặt cọc 30% giá trị hợp đồng.
+    //     - Bên A thanh toán 100% giá trị dịch vụ trong 5 ngày làm việc.
+    //     Điều 3: Thời hạn thỏa thuận
+    //     3.1 Thời gian hiệu lực hợp đồng: Từ khi ký kết đến khi thanh toán hợp đồng.
+    //     ĐẠI DIỆN BÊN A                          ĐẠI DIỆN BÊN B
+    //     (Ký tên, đóng dấu)                          (Ký tên, đóng dấu)
+    // `;
+
+    //         // Giả lập hiển thị văn bản quét
+    //         const draftContainer = document.querySelector(".contract-draft");
+    //         draftContainer.innerHTML = `
+    //     <h5 class="text-center fw-bold mb-3">HỢP ĐỒNG ĐÃ KÝ (ĐÃ QUÉT TỪ ẢNH)</h5>
+    //     <div class="draft-content">${mockScannedText.replace(/\n/g, '<br>')}</div>
+    //     <div class="mt-4">
+    //         <label for="signedDocument" class="form-label">Tải lên hợp đồng đã ký mới (thay thế):</label>
+    //         <input type="file" id="signedDocument" class="form-control" accept=".doc,.docx,.pdf">
+    //         <button id="uploadSignedDocument" class="btn btn-primary mt-2">Tải lên</button>
+    //         <label for="signedImage" class="form-label mt-3">Tải ảnh hợp đồng đã ký (để quét):</label>
+    //         <input type="file" id="signedImage" class="form-control" accept="image/*">
+    //         <button id="uploadSignedImage" class="btn btn-primary mt-2">Tải ảnh lên</button>
+    //     </div>
+    // `;
+    //     } catch (error) {
+    //         console.error("Lỗi khi xử lý ảnh đã ký:", error);
+    //         alert(`Không thể quét văn bản từ ảnh. Lỗi: ${error.message}. Vui lòng đảm bảo ảnh rõ ràng và chứa văn bản hợp đồng.`);
+    //     }
+    // }
+
+    async function loadInitialData() {
+      try {
+        devices = await fetchData(DEVICE_RENTAL_API);
+        devices = devices.result;
+        console.log("Loaded devices:", devices);
+        services = await fetchData(SERVICE_RENTAL_API);
+        console.log("Loaded services:", services);
+        locations = await fetchData(LOCATION_RENTAL_API);
+        console.log("Loaded locations:", locations);
+      } catch (error) {
+        console.error(`Lỗi khi tải dữ liệu: ${error.message}`);
+      }
+    }
+
+    async function layChiTietHopDong(contractId) {
+      try {
+        const contracts = await fetchData(`${CONTRACT_DETAIL_API}/${contractId}`);
+        const rental = await fetchData(RENTAL_API);
+
+        let contract = contracts.result;
+        // contracts.find((c) => c.id === contractId);
+        if (!contract && contracts.length > 0) {
+          console.warn(`Không tìm thấy hợp đồng với ID ${contractId}, sử dụng hợp đồng mặc định`);
+          contract = contracts[0];
+        }
+        if (!contract) {
+          throw new Error(`Không tìm thấy hợp đồng với ID ${contractId}`);
+        }
+        console.log("devices: ", devices);
+        const rentalMatch = rental.find(r => r.id === contract.rentalId);
+        console.log("rentalMatch: ", rentalMatch);
+
+        // Tìm deviceRental trong mảng devices
+        const deviceRental = devices.find(d => d.rental_id === rentalMatch.id);
+        console.log("deviceRental: ", deviceRental);
+        return {
+          id: contract.id,
+          name: contract.name,
+          rental: rentalMatch || null,
+          total_price: rentalMatch && rentalMatch.totalPrice ? rentalMatch.totalPrice.toLocaleString() + " VND" : "0 VND",
+          rental_start_time: rentalMatch && rentalMatch.rentalStartTime
+            ? new Date(rentalMatch.rentalStartTime).toLocaleDateString() : "N/A",
+          rental_end_time: rentalMatch && rentalMatch.rentalEndTime
+            ? new Date(rentalMatch.rentalEndTime).toLocaleDateString() : "N/A",
+          status: contract.status || "draft",
+          customerName: contract.customerName || "Không có thông tin",
+          phoneNumber: contract.customerPhone || "Không có thông tin",
+          addressDetail: contract.address || "",
+          devices: devcieRental || [],
+          services: contract.services || [],
+          locations: contract.locations || [],
+          timelines: contract.timelines || [],
+        };
+      } catch (error) {
+        console.error(`Lỗi khi lấy chi tiết hợp đồng: ${error.message}`);
+        alert(`Lỗi khi lấy chi tiết hợp đồng: ${error.message}`);
+        return null;
+      }
+    }
+
+    function generateWordDocument() {
+      const {
+        Document,
+        Packer,
+        Paragraph,
+        TextRun,
+        Table,
+        TableRow,
+        TableCell,
+        WidthType,
+        BorderStyle,
+      } = docx;
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM",
+                    bold: true,
+                    size: 28,
+                  }),
+                ],
+                alignment: "center",
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Độc lập - Tự do - Hạnh phúc",
+                    bold: true,
+                    underline: true,
+                    size: 24,
+                  }),
+                ],
+                alignment: "center",
+                spacing: { after: 200 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "HỢP ĐỒNG DỊCH VỤ",
+                    bold: true,
+                    size: 32,
+                  }),
+                ],
+                alignment: "center",
+                spacing: { after: 300 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `- Căn cứ Bộ luật dân sự 2015;`,
+                    italics: true,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `- Căn cứ sự thỏa thuận của 2 bên;`,
+                    italics: true,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `Hôm nay, ngày ${document.getElementById("draftDate").textContent}, chúng tôi gồm:`,
+                  }),
+                ],
+                spacing: { after: 200 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "BÊN THUÊ DỊCH VỤ (sau đây gọi là Bên A)",
+                    bold: true,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `TÊN: ${document.getElementById("draftCustomerName").textContent}`,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `ĐỊA CHỈ: ${document.getElementById("draftCustomerAddress").textContent}`,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `SỐ ĐIỆN THOẠI: ${document.getElementById("draftCustomerPhone").textContent}`,
+                  }),
+                ],
+                spacing: { after: 200 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "BÊN CHO THUÊ DỊCH VỤ (sau đây gọi là Bên B)",
+                    bold: true,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "TÊN CÔNG TY: CÔNG TY TNHH DỊCH VỤ MYEVENT",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "ĐẠI DIỆN: BÀ LÊ THỊ A",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "CHỨC DANH: GIÁM ĐỐC",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "ĐỊA CHỈ: K384 Điện Biên Phủ, Phường Thanh Khê Đông, Quận Thanh Khê, Thành phố Đà Nẵng",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "SỐ ĐIỆN THOẠI: 0819901400",
+                  }),
+                ],
+                spacing: { after: 200 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Hai bên thỏa thuận ký kết hợp đồng này với các điều khoản sau:",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Điều 1: Nội dung dịch vụ thực hiện",
+                    bold: true,
+                    allCaps: true,
+                  }),
+                ],
+                spacing: { before: 200 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Bên B cam kết lên kế hoạch và tổ chức sự kiện cho Bên A theo bảng danh mục bên dưới.",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `Tên sự kiện: ${document.getElementById("draftContractName").textContent}`,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `Thời gian thực hiện: Từ ngày ${document.getElementById("draftStartDate").textContent} đến ngày ${document.getElementById("draftEndDate").textContent}`,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `Địa điểm: ${document.getElementById("draftLocation").textContent}`,
+                  }),
+                ],
+                spacing: { after: 200 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Bảng danh mục thiết bị",
+                    bold: true,
+                  }),
+                ],
+                alignment: "center",
+                spacing: { before: 200 },
+              }),
+              new Table({
+                rows: [
+                  new TableRow({
+                    children: [
+                      new TableCell({ children: [new Paragraph("STT")] }),
+                      new TableCell({ children: [new Paragraph("Tên thiết bị")] }),
+                      new TableCell({ children: [new Paragraph("Mô tả")] }),
+                      new TableCell({ children: [new Paragraph("Số lượng")] }),
+                      new TableCell({ children: [new Paragraph("Đơn giá")] }),
+                      new TableCell({ children: [new Paragraph("Thành tiền")] }),
+                    ],
+                  }),
+                  ...Array.from(
+                    document.getElementById("draftDeviceTableBody").children
+                  ).map((row, index) => {
+                    const cells = row.children;
+                    return new TableRow({
+                      children: [
+                        new TableCell({
+                          children: [new Paragraph(`${index + 1}`)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[1].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[2].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[3].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[4].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[5].textContent)],
+                        }),
+                      ],
+                    });
+                  }),
+                ],
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                borders: {
+                  top: { style: BorderStyle.SINGLE, size: 1 },
+                  bottom: { style: BorderStyle.SINGLE, size: 1 },
+                  left: { style: BorderStyle.SINGLE, size: 1 },
+                  right: { style: BorderStyle.SINGLE, size: 1 },
+                  insideHorizontal: { style: BorderStyle.SINGLE, size: 1 },
+                  insideVertical: { style: BorderStyle.SINGLE, size: 1 },
+                },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Bảng danh mục dịch vụ",
+                    bold: true,
+                  }),
+                ],
+                alignment: "center",
+                spacing: { before: 200 },
+              }),
+              new Table({
+                rows: [
+                  new TableRow({
+                    children: [
+                      new TableCell({ children: [new Paragraph("STT")] }),
+                      new TableCell({ children: [new Paragraph("Tên dịch vụ")] }),
+                      new TableCell({ children: [new Paragraph("Mô tả")] }),
+                      new TableCell({ children: [new Paragraph("Số lượng")] }),
+                      new TableCell({ children: [new Paragraph("Đơn giá")] }),
+                      new TableCell({ children: [new Paragraph("Thành tiền")] }),
+                    ],
+                  }),
+                  ...Array.from(
+                    document.getElementById("draftServiceDetailsTableBody").children
+                  ).map((row, index) => {
+                    const cells = row.children;
+                    return new TableRow({
+                      children: [
+                        new TableCell({
+                          children: [new Paragraph(`${index + 1}`)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[1].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[2].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[3].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[4].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[5].textContent)],
+                        }),
+                      ],
+                    });
+                  }),
+                ],
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                borders: {
+                  top: { style: BorderStyle.SINGLE, size: 1 },
+                  bottom: { style: BorderStyle.SINGLE, size: 1 },
+                  left: { style: BorderStyle.SINGLE, size: 1 },
+                  right: { style: BorderStyle.SINGLE, size: 1 },
+                  insideHorizontal: { style: BorderStyle.SINGLE, size: 1 },
+                  insideVertical: { style: BorderStyle.SINGLE, size: 1 },
+                },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Bảng danh mục địa điểm",
+                    bold: true,
+                  }),
+                ],
+                alignment: "center",
+                spacing: { before: 200 },
+              }),
+              new Table({
+                rows: [
+                  new TableRow({
+                    children: [
+                      new TableCell({ children: [new Paragraph("STT")] }),
+                      new TableCell({ children: [new Paragraph("Tên địa điểm")] }),
+                      new TableCell({ children: [new Paragraph("Nhà cung cấp")] }),
+                      new TableCell({ children: [new Paragraph("Từ ngày")] }),
+                      new TableCell({ children: [new Paragraph("Đến ngày")] }),
+                      new TableCell({ children: [new Paragraph("Số ngày thuê")] }),
+                      new TableCell({
+                        children: [new Paragraph("Đơn giá/Ngày")],
+                      }),
+                      new TableCell({ children: [new Paragraph("Thành tiền")] }),
+                    ],
+                  }),
+                  ...Array.from(
+                    document.getElementById("draftLocationTableBody").children
+                  ).map((row, index) => {
+                    const cells = row.children;
+                    return new TableRow({
+                      children: [
+                        new TableCell({
+                          children: [new Paragraph(`${index + 1}`)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[1].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[2].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[3].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[4].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[5].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[6].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[7].textContent)],
+                        }),
+                      ],
+                    });
+                  }),
+                ],
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                borders: {
+                  top: { style: BorderStyle.SINGLE, size: 1 },
+                  bottom: { style: BorderStyle.SINGLE, size: 1 },
+                  left: { style: BorderStyle.SINGLE, size: 1 },
+                  right: { style: BorderStyle.SINGLE, size: 1 },
+                  insideHorizontal: { style: BorderStyle.SINGLE, size: 1 },
+                  insideVertical: { style: BorderStyle.SINGLE, size: 1 },
+                },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Bảng lịch trình dự kiến sự kiện",
+                    bold: true,
+                  }),
+                ],
+                alignment: "center",
+                spacing: { before: 200 },
+              }),
+              new Table({
+                rows: [
+                  new TableRow({
+                    children: [
+                      new TableCell({ children: [new Paragraph("STT")] }),
+                      new TableCell({ children: [new Paragraph("Thời gian")] }),
+                      new TableCell({ children: [new Paragraph("Mô tả")] }),
+                    ],
+                  }),
+                  ...Array.from(
+                    document.getElementById("draftTimelineTableBody").children
+                  ).map((row, index) => {
+                    const cells = row.children;
+                    return new TableRow({
+                      children: [
+                        new TableCell({
+                          children: [new Paragraph(`${index + 1}`)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[1].textContent)],
+                        }),
+                        new TableCell({
+                          children: [new Paragraph(cells[2].textContent)],
+                        }),
+                      ],
+                    });
+                  }),
+                ],
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                borders: {
+                  top: { style: BorderStyle.SINGLE, size: 1 },
+                  bottom: { style: BorderStyle.SINGLE, size: 1 },
+                  left: { style: BorderStyle.SINGLE, size: 1 },
+                  right: { style: BorderStyle.SINGLE, size: 1 },
+                  insideHorizontal: { style: BorderStyle.SINGLE, size: 1 },
+                  insideVertical: { style: BorderStyle.SINGLE, size: 1 },
+                },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Điều 2: Giá trị dịch vụ – Phương thức thanh toán",
+                    bold: true,
+                    allCaps: true,
+                  }),
+                ],
+                spacing: { before: 200 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: `2.1 Giá trị dịch vụ: ${document.getElementById("draftTotalPrice2").textContent}`,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "2.2 Ngay khi Bên B thực hiện cung cấp dịch vụ, hai bên sẽ ký kết biên bản thanh lý hợp đồng.",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "2.3 Phương thức thanh toán: Thanh toán bằng tiền mặt hoặc chuyển khoản.",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "- Bên A thực hiện đặt cọc 30% giá trị hợp đồng.",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "- Bên A thanh toán 100% giá trị dịch vụ trong 5 ngày làm việc.",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Điều 3: Thời hạn thỏa thuận",
+                    bold: true,
+                    allCaps: true,
+                  }),
+                ],
+                spacing: { before: 200 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "3.1 Thời gian hiệu lực hợp đồng: Từ khi ký kết đến khi thanh toán hợp đồng.",
+                  }),
+                ],
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "ĐẠI DIỆN BÊN A",
+                    bold: true,
+                    allCaps: true,
+                  }),
+                  new TextRun({ text: "                          " }),
+                  new TextRun({
+                    text: "ĐẠI DIỆN BÊN B",
+                    bold: true,
+                    allCaps: true,
+                  }),
+                ],
+                spacing: { before: 600 },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({ text: "(Ký tên, đóng dấu)", italics: true }),
+                  new TextRun({ text: "                          " }),
+                  new TextRun({ text: "(Ký tên, đóng dấu)", italics: true }),
+                ],
+              }),
+            ],
+          },
+        ],
+      });
+      Packer.toBlob(doc)
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `HopDongDichVu_${currentContract.id}.docx`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+          alert(`Lỗi khi tạo file Word: ${error.message}`);
+        });
+    }
+
+    function hienThiChiTietHopDong(contract) {
+      if (!contract) {
+        console.error("Không có dữ liệu hợp đồng để hiển thị");
+        document.getElementById("contractName").textContent = "Không có dữ liệu hợp đồng";
+        return;
+      }
+      console.log("Hiển thị hợp đồng:", contract);
+      currentContract = contract;
+
+      document.getElementById("contractName").textContent = contract.name || "Không xác định";
+      document.getElementById("startDate").textContent = formatDate(contract.rental_start_time);
+      document.getElementById("endDate").textContent = formatDate(contract.rental_end_time);
+      document.getElementById("totalPrice").textContent = dinhDangTien(contract.total_price);
+      document.getElementById("customerName").textContent = contract.customerName || "Không có thông tin";
+      document.getElementById("customerPhone").textContent = contract.phoneNumber || "Không có thông tin";
+      document.getElementById("customerAddress").textContent = [
+        contract.addressDetail,
+        contract.wardId,
+        contract.districtId,
+        contract.provinceId,
+      ].filter(Boolean).join(", ") || "Không có thông tin";
+
+      const deviceTableBody = document.getElementById("deviceTableBody");
+      deviceTableBody.innerHTML = "";
+      if (contract.devices.length === 0) {
+        deviceTableBody.innerHTML = `<tr><td colspan="7" class="text-center">Không có thiết bị</td></tr>`;
+      } else {
+        contract.devices.forEach((device) => {
+          const deviceData = devices.find((d) => d.id == device.deviceId);
+          console.log("Thiết bị:", deviceData, "Số lượng:", device.quantity);
+          if (deviceData) {
+            const total = deviceData.price * device.quantity;
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                    <td><img src="${deviceData.image || "assets/img/default.jpg"}" alt="${deviceData.name}"></td>
+                    <td>${deviceData.name}</td>
+                    <td>${deviceData.description || "Không có mô tả"}</td>
+                    <td>${deviceData.supplierName || "Không xác định"}</td>
+                    <td>${device.quantity}</td>
+                    <td>${dinhDangTien(deviceData.price)}</td>
+                    <td>${dinhDangTien(total)}</td>
+                `;
+            deviceTableBody.appendChild(row);
+          } else {
+            console.warn(`Không tìm thấy thiết bị với ID ${device.deviceId}`);
+          }
+        });
+      }
+
+      const serviceTableBody = document.getElementById("serviceTableBody");
+      serviceTableBody.innerHTML = "";
+      if (contract.services.length === 0) {
+        serviceTableBody.innerHTML = `<tr><td colspan="7" class="text-center">Không có dịch vụ</td></tr>`;
+      } else {
+        contract.services.forEach((service) => {
+          const serviceData = services.find((s) => s.id == service.serviceId);
+          console.log("Dịch vụ:", serviceData, "Số lượng:", service.quantity);
+          if (serviceData) {
+            const total = serviceData.price * service.quantity;
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                    <td><img src="${serviceData.image || "assets/img/default.jpg"}" alt="${serviceData.name}"></td>
+                    <td>${serviceData.name}</td>
+                    <td>${serviceData.description || "Không có mô tả"}</td>
+                    <td>${serviceData.supplierName || "Không xác định"}</td>
+                    <td>${service.quantity}</td>
+                    <td>${dinhDangTien(serviceData.price)}</td>
+                    <td>${dinhDangTien(total)}</td>
+                `;
+            serviceTableBody.appendChild(row);
+          } else {
+            console.warn(`Không tìm thấy dịch vụ với ID ${service.serviceId}`);
+          }
+        });
+      }
+
+      const locationTableBody = document.getElementById("locationTableBody");
+      locationTableBody.innerHTML = "";
+      if (contract.locations.length === 0) {
+        locationTableBody.innerHTML = `<tr><td colspan="8" class="text-center">Không có địa điểm</td></tr>`;
+      } else {
+        contract.locations.forEach((location) => {
+          const locationData = locations.find((l) => l.id == location.locationId);
+          console.log(
+            "Địa điểm:",
+            locationData,
+            "Bắt đầu:",
+            location.startDate,
+            "Kết thúc:",
+            location.endDate
+          );
+          if (locationData) {
+            const startDate = formatDate(location.startDate);
+            const endDate = formatDate(location.endDate);
+            const diffDays =
+              startDate && endDate && startDate !== "Chưa xác định" && endDate !== "Chưa xác định"
+                ? Math.ceil(
+                  (new Date(endDate.split("/").reverse().join("-")) -
+                    new Date(startDate.split("/").reverse().join("-"))) /
+                  (1000 * 60 * 60 * 24)
+                ) + 1
+                : 0;
+            const total = locationData.pricePerDay * diffDays;
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                    <td><img src="${locationData.image || "assets/img/default.jpg"}" alt="${locationData.name}"></td>
+                    <td>${locationData.name}</td>
+                    <td>${locationData.supplierName || "Không xác định"}</td>
+                    <td>${startDate}</td>
+                    <td>${endDate}</td>
+                    <td>${diffDays || "Chưa xác định"}</td>
+                    <td>${dinhDangTien(locationData.pricePerDay)}</td>
+                    <td>${dinhDangTien(total)}</td>
+                `;
+            locationTableBody.appendChild(row);
+          } else {
+            console.warn(`Không tìm thấy địa điểm với ID ${location.locationId}`);
+          }
+        });
+      }
+
+      const timelineTableBody = document.getElementById("timelineTableBody");
+      timelineTableBody.innerHTML = "";
+      if (contract.timelines.length === 0) {
+        timelineTableBody.innerHTML = `<tr><td colspan="2" class="text-center">Không có lịch trình</td></tr>`;
+      } else {
+        contract.timelines.forEach((timeline) => {
+          console.log("Lịch trình:", timeline);
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                <td>${timeline.startTime}</td>
+                <td>${timeline.description}</td>
+            `;
+          timelineTableBody.appendChild(row);
+        });
+      }
+
+      document.getElementById("draftDate").textContent = new Date().toLocaleDateString("vi-VN");
+      document.getElementById("draftCustomerName").textContent = contract.customerName;
+      document.getElementById("draftCustomerAddress").textContent = [
+        contract.addressDetail,
+        contract.wardId,
+        contract.districtId,
+        contract.provinceId,
+      ].filter(Boolean).join(", ");
+      document.getElementById("draftCustomerPhone").textContent = contract.phoneNumber;
+      document.getElementById("draftContractName").textContent = contract.name;
+      document.getElementById("draftStartDate").textContent = formatDate(contract.rental_start_time);
+      document.getElementById("draftEndDate").textContent = formatDate(contract.rental_end_time);
+      document.getElementById("draftLocation").textContent = contract.locations.length
+        ? locations.find((l) => l.id == contract.locations[0].locationId)?.name || "Không xác định"
+        : "Không xác định";
+      document.getElementById("draftTotalPrice").textContent = dinhDangTien(contract.total_price);
+      document.getElementById("draftTotalPrice2").textContent = dinhDangTien(contract.total_price);
+
+      const draftServiceTableBody = document.getElementById("draftServiceTableBody");
+      draftServiceTableBody.innerHTML = "";
+      let stt = 1;
+      contract.devices.forEach((device) => {
+        const deviceData = devices.find((d) => d.id == device.deviceId);
+        console.log("Bản thảo thiết bị:", deviceData, "Số lượng:", device.quantity);
+        if (deviceData) {
+          const total = deviceData.price * device.quantity;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                <td>${stt++}</td>
+                <td>${deviceData.name}</td>
+                <td>${deviceData.description || "Không có mô tả"}</td>
+                <td>${device.quantity}</td>
+                <td>${dinhDangTien(deviceData.price)}</td>
+                <td>${dinhDangTien(total)}</td>
+            `;
+          draftServiceTableBody.appendChild(row);
+        }
+      });
+      contract.services.forEach((service) => {
+        const serviceData = services.find((s) => s.id == service.serviceId);
+        console.log("Bản thảo dịch vụ:", serviceData, "Số lượng:", service.quantity);
+        if (serviceData) {
+          const total = serviceData.price * service.quantity;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                <td>${stt++}</td>
+                <td>${serviceData.name}</td>
+                <td>${serviceData.description || "Không có mô tả"}</td>
+                <td>${service.quantity}</td>
+                <td>${dinhDangTien(serviceData.price)}</td>
+                <td>${dinhDangTien(total)}</td>
+            `;
+          draftServiceTableBody.appendChild(row);
+        }
+      });
+      contract.locations.forEach((location) => {
+        const locationData = locations.find((l) => l.id == location.locationId);
+        console.log(
+          "Bản thảo địa điểm:",
+          locationData,
+          "Bắt đầu:",
+          location.startDate,
+          "Kết thúc:",
+          location.endDate
+        );
+        if (locationData) {
+          const startDate = formatDate(location.startDate);
+          const endDate = formatDate(location.endDate);
+          const diffDays =
+            startDate && endDate && startDate !== "Chưa xác định" && endDate !== "Chưa xác định"
+              ? Math.ceil(
+                (new Date(endDate.split("/").reverse().join("-")) -
+                  new Date(startDate.split("/").reverse().join("-"))) /
+                (1000 * 60 * 60 * 24)
+              ) + 1
+              : 0;
+          const total = locationData.pricePerDay * diffDays;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                <td>${stt++}</td>
+                <td>${locationData.name}</td>
+                <td>${locationData.description || "Không có mô tả"}</td>
+                <td>1</td>
+                <td>${dinhDangTien(locationData.pricePerDay)}</td>
+                <td>${dinhDangTien(total)}</td>
+            `;
+          draftServiceTableBody.appendChild(row);
+        }
+      });
+
+      const draftDeviceTableBody = document.getElementById("draftDeviceTableBody");
+      draftDeviceTableBody.innerHTML = "";
+      stt = 1;
+      contract.devices.forEach((device) => {
+        const deviceData = devices.find((d) => d.id == device.deviceId);
+        console.log(
+          "Bảng bản thảo thiết bị:",
+          deviceData,
+          "Số lượng:",
+          device.quantity
+        );
+        if (deviceData) {
+          const total = deviceData.price * device.quantity;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                <td>${stt++}</td>
+                <td>${deviceData.name}</td>
+                <td>${deviceData.description || "Không có mô tả"}</td>
+                <td>${device.quantity}</td>
+                <td>${dinhDangTien(deviceData.price)}</td>
+                <td>${dinhDangTien(total)}</td>
+            `;
+          draftDeviceTableBody.appendChild(row);
+        }
+      });
+
+      const draftServiceDetailsTableBody = document.getElementById("draftServiceDetailsTableBody");
+      draftServiceDetailsTableBody.innerHTML = "";
+      stt = 1;
+      contract.services.forEach((service) => {
+        const serviceData = services.find((s) => s.id == service.serviceId);
+        console.log(
+          "Bảng bản thảo chi tiết dịch vụ:",
+          serviceData,
+          "Số lượng:",
+          service.quantity
+        );
+        if (serviceData) {
+          const total = serviceData.price * service.quantity;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                <td>${stt++}</td>
+                <td>${serviceData.name}</td>
+                <td>${serviceData.description || "Không có mô tả"}</td>
+                <td>${service.quantity}</td>
+                <td>${dinhDangTien(serviceData.price)}</td>
+                <td>${dinhDangTien(total)}</td>
+            `;
+          draftServiceDetailsTableBody.appendChild(row);
+        }
+      });
+
+      const draftLocationTableBody = document.getElementById("draftLocationTableBody");
+      draftLocationTableBody.innerHTML = "";
+      stt = 1;
+      contract.locations.forEach((location) => {
+        const locationData = locations.find((l) => l.id == location.locationId);
+        console.log(
+          "Bảng bản thảo địa điểm:",
+          locationData,
+          "Bắt đầu:",
+          location.startDate,
+          "Kết thúc:",
+          location.endDate
+        );
+        if (locationData) {
+          const startDate = formatDate(location.startDate);
+          const endDate = formatDate(location.endDate);
+          const diffDays =
+            startDate && endDate && startDate !== "Chưa xác định" && endDate !== "Chưa xác định"
+              ? Math.ceil(
+                (new Date(endDate.split("/").reverse().join("-")) -
+                  new Date(startDate.split("/").reverse().join("-"))) /
+                (1000 * 60 * 60 * 24)
+              ) + 1
+              : 0;
+          const total = locationData.pricePerDay * diffDays;
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                <td>${stt++}</td>
+                <td>${locationData.name}</td>
+                <td>${locationData.supplierName || "Không xác định"}</td>
+                <td>${startDate}</td>
+                <td>${endDate}</td>
+                <td>${diffDays || "Chưa xác định"}</td>
+                <td>${dinhDangTien(locationData.pricePerDay)}</td>
+                <td>${dinhDangTien(total)}</td>
+            `;
+          draftLocationTableBody.appendChild(row);
+        }
+      });
+
+      const draftTimelineTableBody = document.getElementById("draftTimelineTableBody");
+      draftTimelineTableBody.innerHTML = "";
+      stt = 1;
+      contract.timelines.forEach((timeline) => {
+        console.log("Bảng bản thảo lịch trình:", timeline);
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${stt++}</td>
+            <td>${timeline.startTime}</td>
+            <td>${timeline.description}</td>
+        `;
+        draftTimelineTableBody.appendChild(row);
+      });
+    }
+
+    window.onload = async function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      let contractId = urlParams.get("id");
+
+      if (!contractId) {
+        console.warn("Không tìm thấy ID hợp đồng trong URL, sử dụng ID mặc định");
+        contractId = "1";
+      }
+
+      await loadInitialData();
+      const contract = await layChiTietHopDong(contractId);
+      if (!contract) {
+        console.error("Không tải được hợp đồng với ID:", contractId);
+        document.getElementById("contractName").textContent = "Không tìm thấy hợp đồng";
+        return;
+      }
+
+      hienThiChiTietHopDong(contract);
+
+      const contractDraft = document.querySelector(".contract-draft");
+      const showDraftButton = document.getElementById("showDraftButton");
+      const exportDraftButton = document.getElementById("exportDraftButton");
+      const uploadSignedDocument = document.getElementById("uploadSignedDocument");
+
+      contractDraft.classList.remove("show");
+      showDraftButton.textContent = "Xem Bản Thảo Hợp Đồng";
+      exportDraftButton.style.display = "none";
+
+      showDraftButton.addEventListener("click", () => {
+        console.log(
+          "Nút hiển thị bản thảo được nhấn, trạng thái hiện tại:",
+          contractDraft.classList.contains("show")
+        );
+        contractDraft.classList.toggle("show");
+        showDraftButton.textContent = contractDraft.classList.contains("show")
+          ? "Ẩn Bản Thảo Hợp Đồng"
+          : "Xem Bản Thảo Hợp Đồng";
+        exportDraftButton.style.display = contractDraft.classList.contains("show")
+          ? "inline-block"
+          : "none";
+        console.log(
+          "Trạng thái mới:",
+          contractDraft.classList.contains("show")
+        );
+      });
+
+      exportDraftButton.addEventListener("click", () => {
+        if (currentContract) {
+          generateWordDocument();
+        } else {
+          alert("Không có dữ liệu hợp đồng để xuất!");
+        }
+      });
+
+      uploadSignedDocument.addEventListener("click", async () => {
+        const fileInput = document.getElementById("signedDocument");
+        const file = fileInput.files[0];
+        if (!file) {
+          alert("Vui lòng chọn file để tải lên!");
+          return;
+        }
+        if (!currentContract) {
+          alert("Không có hợp đồng để liên kết với file!");
+          return;
+        }
+        const allowedTypes = [
+          "application/pdf",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ];
+        if (!allowedTypes.includes(file.type)) {
+          alert("Chỉ hỗ trợ file PDF hoặc Word!");
+          return;
+        }
+        const result = await uploadFile(file, currentContract.id);
+        if (result) {
+          alert("Tải lên hợp đồng đã ký thành công!");
+          fileInput.value = "";
+        }
+      });
+    };
+  </script>
+</body>
+
+</html>

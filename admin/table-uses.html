@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Tables / Uses - My Event</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- DataTables CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+</head>
+
+<body>
+    <!-- Popup Modal (Nâng Cấp Quyền) -->
+    <div class="modal fade" id="upgradeRoleModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center w-100">Nâng Cấp Quyền</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="roleSelect">Chọn quyền mới:</label>
+                    <select id="roleSelect" class="form-select">
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" id="saveRole" class="btn btn-success">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= Header ======= -->
+    <div id="header"></div>
+    <!-- ======= Sidebar ======= -->
+    <div id="sidebar-container"></div>
+    <script src="assets/js/sidebar.js" type="module"></script><!-- End Sidebar-->
+
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Quản Lý Người Dùng</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item">Quản lý</li>
+                    <li class="breadcrumb-item active">Quản lý người dùng</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Quản Lý người dùng</h5>
+                            <!-- Table with stripped rows -->
+                            <table id="list-user">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Họ</th>
+                                        <th>Tên</th>
+                                        <th>Quyền</th>
+                                        <th>Số điện thoại</th>
+                                        <th data-type="date" data-format="MM/DD/YYYY">Ngày tạo</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dữ liệu sẽ được thêm động bởi script -->
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            © <strong><span>My Event</span></strong>. Tôn trọng bản quyền
+        </div>
+        <div class="credits">
+            <h6>Liên hệ :Nhóm 58 để biết thêm chi tiết nhá🌟</h6>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/header.js"></script>
+    <!-- Hành động API data cho table User -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const token = localStorage.getItem("token");
+
+            fetch("http://localhost:8080/event-management/roles", {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(roles => {
+                    const role = roles.find(r => r.id === user.roleName);
+                    const roleName = role ? role.name.toUpperCase() : "USER";
+
+                    const script = document.createElement("script");
+                    script.src = user.roleName === "MANAGER"
+                        ? "assets/js/users_mgr.js"
+                        : "assets/js/uses.js";
+                    script.defer = true;
+                    document.body.appendChild(script);
+                })
+                .catch(error => {
+                    console.error("Lỗi khi lấy role:", error);
+                });
+        });
+    </script>
+    <!-- Script for Modal -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const upgradeRoleButtons = document.querySelectorAll(".upgradeRoleBtn");
+            const modalElement = document.getElementById("upgradeRoleModal");
+
+            if (modalElement) {
+                const modal = new bootstrap.Modal(modalElement);
+                upgradeRoleButtons.forEach(button => {
+                    button.addEventListener("click", function () {
+                        modal.show();
+                    });
+                });
+            } else {
+                console.error("Lỗi: Không tìm thấy modal.");
+            }
+        });
+    </script>
+
+    <!-- Toast (Tùy chọn, nếu bạn cần hiển thị thông báo) -->
+    <div id="toast"
+        style="display:none; position:fixed; top:10px; right:10px; padding:10px; color:white; border-radius:5px;"></div>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+{
+    "admins": [
+        {
+            "id": 1,
+            "name": "Lê Thị Trinh",
+            "email": "trinh@gmail.com",
+            "image": "assets/img/team/team1.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Nguyễn Hồng Minh",
+            "email": "minh@gmail.com",
+            "image": "assets/img/team/team2.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Phan Thị Phước Hạnh",
+            "email": "hanh@gmail.com",
+            "image": "assets/img/team/team3.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Ngô Trần Khánh Huyền",
+            "email": "huyen@gmail.com",
+            "image": "assets/img/team/team4.jpg"
+        }
+    ]
+}

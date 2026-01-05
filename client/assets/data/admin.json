@@ -1,0 +1,34 @@
+{
+    "admins": [
+        {
+            "id": 1,
+            "name": "Lê Thị Trinh",
+            "email": "trinh@gmail.com",
+            "image": "assets/img/avatar/linh3.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Nguyễn Hồng Minh",
+            "email": "minh@gmail.com",
+            "image": "assets/img/avatar/minh.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Phan Thị Phước Hạnh",
+            "email": "hanh@gmail.com",
+            "image": "assets/img/avatar/hanh.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Ngô Trần Khánh Huyền",
+            "email": "huyen@gmail.com",
+            "image": "assets/img/avatar/huyen.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Phạm Ngọc Hoàng Long",
+            "email": "longn@gmail.com",
+            "image": "assets/img/avatar/long.jpg"
+        }
+    ]
+}

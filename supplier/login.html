@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container p-4 rounded shadow">
+        <h2 id="formTitle">ĐĂNG NHẬP</h2>
+        <div id="alertBox" class="alert" style="display: none;"></div>
+
+        <!-- Form đăng nhập -->
+        <div id="loginSection" class="auth-form active">
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" required>
+                        <span class="input-group-text" onclick="togglePassword('password', 'eyeIcon')">
+                            <i class="bi bi-eye-slash" id="eyeIcon"></i>
+                        </span>
+                    </div>
+                </div>
+                <button type="submit" class="btn w-100">ĐĂNG NHẬP</button>
+            </form>
+            <div class="text-center mt-3">
+                <p class="text-white mb-1">
+                    <a href="#" id="forgotPasswordLink" class="text">Quên mật khẩu?</a>
+                </p>
+                <p class="text-white">
+                    Chưa có tài khoản? <a href="register.html" class="text">Đăng Ký</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Form quên mật khẩu (ẩn mặc định) -->
+        <div id="forgotPasswordSection" class="auth-form" style="display: none;">
+            <form id="forgotPasswordForm">
+                <div class="mb-3">
+                    <label for="forgotEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="forgotEmail" required>
+                </div>
+                <button type="submit" class="btn w-100">GỬI YÊU CẦU</button>
+            </form>
+            <p class="text-center mt-3 text-white">
+                <a href="#" id="backToLogin" class="text">Quay lại đăng nhập</a>
+            </p>
+        </div>
+    </div>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/login.js"></script>
+    <script src="assets/js/header.js"></script>
+</body>
+</html>

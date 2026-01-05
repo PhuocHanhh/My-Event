@@ -1,0 +1,35 @@
+.event-carousel img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.form-section img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.img-fluid {
+    border-radius: 8px;
+}
+.container h3{
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+@media (max-width: 768px) {
+    .alert {
+        flex-direction: column;
+        text-align: center;
+    }
+    .text-container {
+        margin-bottom: 15px;
+    }
+}

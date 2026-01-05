@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Hợp Đồng</title>
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/fe-event-management/client/assets/css/main.css">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header .logo h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header .logo span {
+            color: #718355;
+        }
+
+        .navmenu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .navmenu ul li {
+            margin-right: 20px;
+        }
+
+        .navmenu ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .navmenu ul li a:hover {
+            color: #718355;
+        }
+
+        .content {
+            margin-top: 80px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .content h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .payment-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .payment-form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .payment-form input,
+        .payment-form select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .payment-form .btn {
+            background-color: #718355;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-form .btn:hover {
+            background-color: #5a6268;
+        }
+
+        .payment-form .btn-back {
+            background-color: #6c757d;
+        }
+
+        .payment-form .btn-back:hover {
+            background-color: #5a6268;
+        }
+
+        .status-message {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .status-message.deposit {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-message.completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .result-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .result-message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .result-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .transaction-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        #footer {
+            background-color: #e6f0e6;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        #footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header"></header>
+    <div class="content container">
+        <h2>THANH TOÁN HỢP ĐỒNG</h2>
+        <div class="payment-form">
+            <div id="statusMessage" class="status-message" style="display: none;"></div>
+            <div id="contractInfo">
+                <label>Tên Hợp Đồng:</label>
+                <input type="text" id="contractName" readonly>
+                <label>Giá Trị Hợp Đồng:</label>
+                <input type="text" id="contractValue" readonly>
+                <label id="depositLabel" style="display: none;">Số Tiền Đã Đặt Cọc (10%):</label>
+                <input type="text" id="depositAmount" readonly style="display: none;">
+                <label id="amountLabel"></label>
+                <input type="text" id="amount" readonly>
+            </div>
+            <div id="paymentMethodSection" style="display: none;">
+                <label>Phương Thức Thanh Toán:</label>
+                <select id="paymentMethod">
+                    <option value="VNPAY">VNPAY</option>
+                </select>
+            </div>
+            <div id="transactionInfo" class="transaction-info" style="display: none;"></div>
+            <div id="resultMessage" class="result-message"></div>
+            <div id="actionButtons">
+                <button class="btn" id="paymentButton" style="display: none;" onclick="initiatePayment()">Thanh
+                    Toán</button>
+                <button class="btn btn-back" onclick="goBack()">Quay Lại</button>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/header.js"></script>
+
+    <script>
+        const BASE_URL = "http://localhost:8080/event-management";
+        const CONTRACT_API_URL = "http://localhost:8080/event-management/api/contracts";
+        const PAYMENT_API_URL = "http://localhost:8080/event-management/api/v1/payment/vnpay";
+        const RENTAL_API_URL = `${BASE_URL}/rentals`;
+
+        function getToken() {
+            return localStorage.getItem("token");
+        }
+
+        function formatCurrency(value) {
+            return value.toLocaleString('vi-VN') + " VNĐ";
+        }
+
+        function formatDateTime(vnpDate) {
+            if (!vnpDate) return '';
+            const year = vnpDate.slice(0, 4);
+            const month = vnpDate.slice(4, 6);
+            const day = vnpDate.slice(6, 8);
+            const hour = parseInt(vnpDate.slice(8, 10));
+            const minute = vnpDate.slice(10, 12);
+            const second = vnpDate.slice(12, 14);
+            const period = hour >= 12 ? "CH" : "SA";
+            const displayHour = hour % 12 || 12;
+            return `${day}/${month}/${year} ${displayHour}:${minute}:${second} ${period}`;
+        }
+
+        async function fetchData(url, method = "GET", data = null) {
+            const token = getToken();
+            const options = {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            if (token) options.headers["Authorization"] = `Bearer ${token}`;
+            if (data) options.body = JSON.stringify(data);
+
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`${method} failed! Status: ${response.status}`);
+            }
+            return response.json();
+        }
+
+        async function fetchContractDetails(contractId) {
+            try {
+                var contract = await fetchData(`${CONTRACT_API_URL}/${contractId}`);
+                contract = contract.result;
+                console.log("minh :", contract);
+
+                const rental = await fetchData(`${RENTAL_API_URL}/${contract.rentalId}`);
+                return {
+                    id: contract.id,
+                    contractName: contract.name,
+                    //value: Math.round(parseFloat(rental.totalPrice) || 0),
+                    value: rental.totalPrice,
+                    status: contract.status || 'draft'
+                };
+            } catch (error) {
+                alert(`Lỗi khi lấy thông tin hợp đồng: ${error.message}`);
+                return null;
+            }
+        }
+
+        function calculateDepositAmount(totalValue) {
+            return Math.round(totalValue * 0.1);
+        }
+
+        function calculateRemainingAmount(totalValue) {
+            return Math.round(totalValue * 0.9);
+        }
+
+        async function initiatePayment() {
+            try {
+                const contractId = localStorage.getItem("contractId");
+                const paymentAmount = parseInt(localStorage.getItem("paymentAmount"));
+                const contractStatus = localStorage.getItem("contractStatus");
+
+                if (!contractId || !paymentAmount || !contractStatus) {
+                    alert("Thiếu thông tin hợp đồng. Vui lòng thử lại.");
+                    return;
+                }
+
+                const paymentType = contractStatus === "Draft" ? "deposit" : "remaining";
+
+                // Gửi request POST với contractId và paymentType trong query string
+                const url = `${PAYMENT_API_URL}?contractId=${encodeURIComponent(contractId)}&paymentType=${encodeURIComponent(paymentType)}`;
+
+                const response = await fetchData(url, "POST");
+
+                if (response.message && response.url) {
+                    window.location.href = response.url; // Chuyển hướng đến VNPAY
+                } else {
+                    alert("Lỗi khi tạo URL thanh toán: " + (response.message || "Không xác định"));
+                }
+            } catch (error) {
+                alert("Lỗi khi khởi tạo thanh toán: " + error.message);
+            }
+        }
+
+        function processPaymentResult() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const contractId = urlParams.get("contractId");
+            const resultMessage = document.getElementById("resultMessage");
+            const paymentButton = document.getElementById("paymentButton");
+            const vnp_ResponseCode = urlParams.get("vnp_ResponseCode");
+
+
+            if (!vnp_ResponseCode) {
+                console.log("Không có vnp_ResponseCode, bỏ qua xử lý.");
+                return;
+            }
+
+            const paymentType = localStorage.getItem("contractStatus") === "Draft" ? "deposit" : "remaining";
+            const amount = parseInt(urlParams.get("vnp_Amount")) / 100;
+
+            resultMessage.style.display = "block";
+            paymentButton.style.display = "none";
+            // Lấy contractId từ localStorage
+            // const contractId = localStorage.getItem("id");
+
+            if (vnp_ResponseCode === "00") {
+                resultMessage.className = "result-message success";
+                resultMessage.innerHTML = `
+                    <div style="text-align: center;">
+                        <img src="assets/img/Logo-VNPAY-QR-635x118.jpg" alt="VNPAY Logo" style="width: 100px; margin-bottom: 10px;">
+                        <div style="color: green; font-size: 24px;">✔</div>
+                        <h3>Thông báo</h3>
+                        <p><strong>Mã tra cứu:</strong> ${urlParams.get("vnp_TransactionNo") || 'Không có'}</p>
+                        <p><strong>Số tiền:</strong> ${formatCurrency(amount)}</p>
+                        <p><strong>Thời gian giao dịch:</strong> ${formatDateTime(urlParams.get("vnp_PayDate")) || 'Không có'}</p>
+                        <hr>
+                        <p>Hotline: 1900.5555.77 | Email: hotrovnpay@vnpay.vn</p>
+                    </div>
+                `;
+                localStorage.setItem("lastTransaction", JSON.stringify({
+                    transactionNo: urlParams.get("vnp_TransactionNo"),
+                    amount: amount,
+                    date: urlParams.get("vnp_PayDate"),
+                    type: paymentType
+                }));
+            } else {
+                resultMessage.className = "result-message error";
+                resultMessage.innerHTML = `
+                    <div style="text-align: center;">
+                        <img src="" alt="VNPAY Logo" style="width: 100px; margin-bottom: 10px;">
+                        <div style="color: red; font-size: 24px;">⚠</div>
+                        <h3>Thông báo</h3>
+                        <p>Thanh toán thất bại!</p>
+                        <p><strong>Thời gian giao dịch:</strong> ${formatDateTime(urlParams.get("vnp_PayDate")) || 'Không có'}</p>
+                        <hr>
+                        <p>Hotline: 1900.5555.77 | Email: hotrovnpay@vnpay.vn</p>
+                    </div>
+                `;
+                paymentButton.style.display = "inline-block";
+            }
+        }
+        async function loadContractInfo() {
+            const urlParams = new URLSearchParams(window.location.search);
+            console.log("Trinh: ", urlParams);
+            const contractId = urlParams.get('id');
+            console.log("id contract: ", contractId);
+            if (!contractId) {
+                alert("Không tìm thấy ID hợp đồng!");
+                window.location.href = "ListContract.html";
+                return;
+            }
+            localStorage.setItem("contractId", contractId);
+
+            const contract = await fetchContractDetails(contractId);
+            if (!contract) {
+                window.location.href = "ListContract.html";
+                return;
+            }
+
+            const statusMessage = document.getElementById("statusMessage");
+            const contractInfo = document.getElementById("contractInfo");
+            const depositLabel = document.getElementById("depositLabel");
+            const depositAmountInput = document.getElementById("depositAmount");
+            const amountLabel = document.getElementById("amountLabel");
+            const amountInput = document.getElementById("amount");
+            const paymentMethodSection = document.getElementById("paymentMethodSection");
+            const paymentButton = document.getElementById("paymentButton");
+            const transactionInfo = document.getElementById("transactionInfo");
+
+            document.getElementById("contractName").value = contract.contractName;
+            document.getElementById("contractValue").value = formatCurrency(contract.value);
+            localStorage.setItem("contractId", contractId);
+            localStorage.setItem("contractStatus", contract.status);
+
+            statusMessage.style.display = "none";
+            depositLabel.style.display = "none";
+            depositAmountInput.style.display = "none";
+            paymentMethodSection.style.display = "none";
+            paymentButton.style.display = "none";
+            transactionInfo.style.display = "none";
+
+            const depositAmount = calculateDepositAmount(contract.value);
+            const remainingAmount = calculateRemainingAmount(contract.value);
+
+            if (contract.status === "Draft") {
+                amountLabel.textContent = "Số Tiền Đặt Cọc (10%):";
+                amountInput.value = formatCurrency(depositAmount);
+                paymentMethodSection.style.display = "block";
+                paymentButton.style.display = "inline-block";
+                paymentButton.textContent = "Thanh Toán Đặt Cọc";
+                localStorage.setItem("paymentAmount", depositAmount);
+            } else if (contract.status === "Completed") {
+                statusMessage.style.display = "block";
+                statusMessage.className = "status-message completed";
+                statusMessage.innerHTML = "Hợp đồng đã thanh toán đầy đủ!";
+                depositLabel.style.display = "block";
+                depositAmountInput.style.display = "block";
+                depositAmountInput.value = formatCurrency(depositAmount);
+                amountLabel.textContent = "Số Tiền Còn Lại:";
+                amountInput.value = formatCurrency(0);
+                const lastTransaction = JSON.parse(localStorage.getItem("lastTransaction") || "{}");
+            } else {
+                statusMessage.style.display = "block";
+                statusMessage.className = "status-message deposit";
+                statusMessage.innerHTML = "Hợp đồng đã đặt cọc thành công!";
+                depositLabel.style.display = "block";
+                depositAmountInput.style.display = "block";
+                depositAmountInput.value = formatCurrency(depositAmount);
+                amountLabel.textContent = "Số Tiền Còn Lại (90%):";
+                amountInput.value = formatCurrency(remainingAmount);
+                paymentMethodSection.style.display = "block";
+                paymentButton.style.display = "inline-block";
+                paymentButton.textContent = "Thanh Toán Khoản Còn Lại";
+                localStorage.setItem("paymentAmount", remainingAmount);
+                const lastTransaction = JSON.parse(localStorage.getItem("lastTransaction") || "{}");
+            }
+        }
+
+        function goBack() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const vnp_ResponseCode = urlParams.get("vnp_ResponseCode");
+            const redirectUrl = vnp_ResponseCode === "00" ? "ListContract.html?payment=success" : "ListContract.html";
+            window.location.href = redirectUrl;
+        }
+
+        window.onload = async function () {
+            await loadContractInfo();
+            processPaymentResult();
+        };
+    </script>
+</body>
+
+</html>

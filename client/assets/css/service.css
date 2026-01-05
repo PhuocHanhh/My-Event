@@ -1,0 +1,188 @@
+/*--------------------------------------------------------------
+# Real Estate Section
+--------------------------------------------------------------*/
+.real-estate .card {
+    background-color: var(--background-color);
+    color: var(--default-color);
+    border: none;
+    position: relative;
+    border-radius: 0px;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.real-estate .card:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 25%, rgba(0, 0, 0, 0.9) 75%);
+    z-index: 2;
+}
+
+.real-estate .card img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.real-estate .card .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 30px;
+}
+
+.real-estate .card .card-body .sale-rent {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--contrast-color);
+    padding: 4px 20px;
+    border: 2px solid var(--accent-color);
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+
+.real-estate .card .card-body h3 {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.real-estate .card .card-body h3 a {
+    color: var(--contrast-color);
+}
+
+.real-estate .card .card-body .card-content {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    height: 80px;
+    visibility: hidden;
+    opacity: 0;
+    margin-top: 10px;
+    margin-bottom: -80px;
+    margin-left: -30px;
+    margin-right: -30px;
+    transition: 0.3s;
+    padding: 0 10px;
+}
+
+.real-estate .card .card-body .card-content .propery-info {
+    font-weight: 500;
+}
+
+.real-estate .card:hover .card-content {
+    margin-bottom: -30px;
+    visibility: visible;
+    opacity: 1;
+}
+
+/*--------------------------------------------------------------
+# Service Details Section
+--------------------------------------------------------------*/
+.service-box {
+    background-color: var(--surface-color);
+    padding: 20px;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-box+.service-box {
+    margin-top: 30px;
+}
+
+.service-box h4 {
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.services-list {
+    background-color: var(--surface-color);
+}
+
+.services-list a {
+    color: color-mix(in srgb, var(--default-color), transparent 20%);
+    background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.services-list a:first-child {
+    margin-top: 0;
+}
+
+.services-list a i {
+    font-size: 16px;
+    margin-right: 8px;
+    color: var(--contrast-color);
+}
+
+.services-list a.active {
+    font-weight: bold;
+    background-color: #718355;
+    color: var(--contrast-color);
+}
+
+
+.services-list a:hover {
+    font-weight: bold;
+    background-color: #718355;
+    color: var(--contrast-color);
+}
+
+.download-catalog a {
+    color: var(--default-color);
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    transition: 0.3s;
+    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.download-catalog a:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.download-catalog a:last-child {
+    padding-bottom: 0;
+}
+
+.download-catalog a i {
+    font-size: 24px;
+    margin-right: 8px;
+    color: var(--accent-color);
+}
+
+.download-catalog a:hover {
+    color: var(--accent-color);
+}
+
+.help-box {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    margin-top: 30px;
+    padding: 30px 15px;
+}
+
+.help-box .help-icon {
+    font-size: 48px;
+}
+
+.help-box h4,
+.help-box a {
+    color: var(--contrast-color);
+}

@@ -1,0 +1,434 @@
+{
+  "device": [
+    {
+      "id": "1",
+      "name": "Thiết bị Âm thanh cap nhap 2",
+      "img": "device_a.jpg",
+      "hourly_rental_fee": 7000000,
+      "quantity": 100,
+      "place": "Đà Nẵng",
+      "created_at": "12/03/2025",
+      "updated_at": "2025-04-16",
+      "description": "Thiết bị A chuyên dùng cho sự kiện lớn",
+      "device_types_id": "1",
+      "user_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Thiết bị Ánh sáng",
+      "img": "device_b.jpg",
+      "hourly_rental_fee": 1500000,
+      "quantity": 500,
+      "place": "Đà Nẵng",
+      "created_at": "14/03/2025",
+      "updated_at": "16/03/2025",
+      "description": "Thiết bị B phục vụ sân khấu ngoài trời",
+      "device_types_id": "2",
+      "user_id": "1"
+    },
+    {
+      "id": "3",
+      "name": "TiVi",
+      "img": "device_b.jpg",
+      "hourly_rental_fee": 15000,
+      "quantity": 500,
+      "place": "Hồ Chí Minh",
+      "created_at": "14/03/2025",
+      "updated_at": "16/03/2025",
+      "description": "Thiết bị C phục vụ sân khấu ngoài trời",
+      "device_types_id": "3",
+      "user_id": "user2"
+    },
+    {
+      "id": "4",
+      "name": "TiVi",
+      "img": "device_b.jpg",
+      "hourly_rental_fee": 25000,
+      "quantity": 500,
+      "place": "Hà Nội",
+      "created_at": "14/03/2025",
+      "updated_at": "16/03/2025",
+      "description": "Thiết bị C phục vụ sân khấu ngoài trời",
+      "device_types_id": "3",
+      "user_id": "user1"
+    },
+    {
+      "id": "7a6a",
+      "img": "avater.jpg",
+      "name": "Remi pad pro",
+      "description": "Level C2 đạt năng lực từ IELTS 6.5 8.0",
+      "device_types_id": "122b",
+      "hourly_rental_fee": 20000,
+      "quantity": 3,
+      "place": "Đà nẵng",
+      "user_id": "1",
+      "created_at": "2025-04-29",
+      "updated_at": "2025-04-29"
+    }
+  ],
+  "device_type": [
+    {
+      "id": "1",
+      "name": "Âm thanh",
+      "created_at": "2025-03-17",
+      "updated_at": "2025-03-17"
+    },
+    {
+      "id": "2",
+      "name": "Ánh sáng",
+      "created_at": "2025-03-17",
+      "updated_at": "2025-03-17"
+    },
+    {
+      "id": "3",
+      "name": "Màn hình LED",
+      "created_at": "2025-03-17",
+      "updated_at": "2025-03-17"
+    },
+    {
+      "id": "85a7",
+      "name": "Thêm",
+      "created_at": "2025-04-10",
+      "updated_at": "2025-04-10"
+    },
+    {
+      "id": "1d5c",
+      "name": "loại tb",
+      "created_at": "2025-04-12",
+      "updated_at": "2025-04-12"
+    },
+    {
+      "id": "122b",
+      "name": "pad",
+      "created_at": "2025-04-15",
+      "updated_at": "2025-04-15"
+    },
+    {
+      "id": "ad4e",
+      "name": "Ipad",
+      "created_at": "2025-04-29",
+      "updated_at": "2025-04-29"
+    }
+  ],
+  "service": [
+    {
+      "id": "1",
+      "name": "Taylor Swift",
+      "description": "Dịch vụ hỗ trợ âm thanh ánh sáng",
+      "img": "service_a.jpg",
+      "hourly_salary": 500000,
+      "quantity": 300,
+      "place": "Đà Nẵng",
+      "created_at": "12/03/2025",
+      "updated_at": "2025-04-16",
+      "user_id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Xiếc thú",
+      "description": "Dịch vụ biểu diễn xuất sắc",
+      "img": "service_b.jpg",
+      "hourly_salary": 7500000,
+      "quantity": 200,
+      "place": "Đà Nẵng",
+      "created_at": "14/03/2025",
+      "updated_at": "16/03/2025",
+      "user_id": "1"
+    },
+    {
+      "id": "3",
+      "name": "Múa bale",
+      "description": "Dịch vụ biểu diễn xuất sắc",
+      "img": "service_c.jpg",
+      "hourly_salary": 1000000,
+      "quantity": 200,
+      "place": "Hội An",
+      "created_at": "14/03/2025",
+      "updated_at": "16/03/2025",
+      "user_id": "1"
+    },
+    {
+      "id": "4",
+      "name": "MC",
+      "description": "Dịch vụ biểu diễn xuất sắc",
+      "img": "service_d.jpg",
+      "hourly_salary": 1000,
+      "quantity": 200,
+      "place": "Nghệ An",
+      "created_at": "14/03/2025",
+      "updated_at": "16/03/2025",
+      "user_id": "user1"
+    },
+    {
+      "id": "5",
+      "name": "Nhảy hiphop h",
+      "description": "Dịch vụ biểu diễn xuất sắc",
+      "img": "service_f.jpg",
+      "hourly_salary": 10090,
+      "quantity": 200,
+      "place": "Hồ Chí Minh",
+      "created_at": "14/03/2025",
+      "updated_at": "16/03/2025",
+      "user_id": "user1"
+    },
+    {
+      "id": "6",
+      "name": "Văn nghệ dân vũ",
+      "description": "Dịch vụ biểu diễn xuất sắc",
+      "img": "service_g.jpg",
+      "hourly_salary": 20000,
+      "quantity": 200,
+      "place": "Hà Nội",
+      "created_at": "14/03/2025",
+      "updated_at": "16/03/2025",
+      "user_id": "user1"
+    },
+    {
+      "id": "575f",
+      "img": "avater.jpg",
+      "name": "phục vụ tận mồm",
+      "description": "Level C2 đạt năng lực từ IELTS 6.5 8.0",
+      "hourly_salary": 10090,
+      "quantity": 1,
+      "place": "Đà nẵng",
+      "user_id": "1",
+      "created_at": "2025-04-29",
+      "updated_at": "2025-04-29"
+    }
+  ],
+  "user": [
+    {
+      "id": "user1",
+      "role_id": "role1",
+      "email": "nguyenhongminh013@gmail.com",
+      "password": "123456",
+      "first_name": "Trinh",
+      "last_name": "Lee",
+      "avatar": "assets/img/messages-1.jpg",
+      "phone_number": "0986754369",
+      "created_at": "2024-03-19T12:00:00Z",
+      "updated_at": "2024-03-19T12:00:00Z"
+    },
+    {
+      "id": "user2",
+      "role_id": "role3",
+      "email": "nguyenhongminh4@gmail.com",
+      "password": "123456",
+      "first_name": "Hồng Minh",
+      "last_name": "Nguyễn",
+      "avatar": "assets/img/messages-2.jpg",
+      "phone_number": "0989410614",
+      "created_at": "2024-03-19T12:00:00Z",
+      "updated_at": "2024-03-19T12:00:00Z"
+    },
+    {
+      "id": "user3",
+      "role_id": "role3",
+      "email": "hello@gmail.com",
+      "password": "123",
+      "first_name": "Ngân",
+      "last_name": "Kim",
+      "avatar": "assets/img/messages-3.jpg",
+      "phone_number": "0989410614",
+      "created_at": "2024-04-19T12:00:00Z",
+      "updated_at": "2024-04-19T12:00:00Z"
+    },
+    {
+      "id": "user4",
+      "role_id": "role3",
+      "email": "tuan@gmail.com",
+      "password": "123",
+      "first_name": "Tuấn",
+      "last_name": "Anh",
+      "avatar": "assets/img/avatar-img.jpg",
+      "phone_number": "0989410614",
+      "created_at": "2024-05-19T12:00:00Z",
+      "updated_at": "2024-05-19T12:00:00Z"
+    }
+  ],
+  "role": [
+    {
+      "id": "role1",
+      "name": "NhaCungCap",
+      "created_at": "2024-03-19T12:00:00Z",
+      "updated_at": "2024-03-19T12:00:00Z"
+    },
+    {
+      "id": "role2",
+      "name": "Admin",
+      "created_at": "2024-03-19T12:00:00Z",
+      "updated_at": "2024-03-19T12:00:00Z"
+    },
+    {
+      "id": "role3",
+      "name": "Người dùng",
+      "created_at": "2024-03-19T12:00:00Z",
+      "updated_at": "2024-03-19T12:00:00Z"
+    }
+  ],
+  "location": [
+    {
+      "id": "1",
+      "name": "Nhà hàng Queen",
+      "description": "Sang trọng, quý tộc.",
+      "img": "location_a.jpg",
+      "hourly_rental_fee": 5000000,
+      "address": "Quận Thanh Khê, phường Hoà Khê",
+      "created_at": "2025-03-19 10:00:00",
+      "updated_at": "2025-03-19 12:00:00",
+      "user_id": "1"
+    },
+    {
+      "id": "1",
+      "name": "Nhà hàng King",
+      "description": "Giàu có, nhà to.",
+      "img": "location_a.jpg",
+      "hourly_rental_fee": 150000,
+      "address": "Quận Thanh Khê, phường Hoà Khê",
+      "created_at": "2025-03-19 10:00:00",
+      "updated_at": "2025-03-19 12:00:00",
+      "user_id": "1"
+    },
+    {
+      "id": "1",
+      "name": "Sân khấu A",
+      "description": "Địa điểm chuyên tổ chức sự kiện ngoài trời.",
+      "img": "location_a.jpg",
+      "hourly_rental_fee": 500,
+      "address": "Quận Thanh Khê, phường Hoà Khê",
+      "created_at": "2025-03-19 10:00:00",
+      "updated_at": "2025-03-19 12:00:00",
+      "user_id": "user1"
+    },
+    {
+      "id": "b0b0",
+      "img": "assets/img/location/hoinghi.jpg",
+      "name": "Nguyễn Hồng Minh",
+      "description": "Level C1 đạt năng lực từ IELTS 6.5 8.0",
+      "hourly_rental_fee": 50,
+      "address": "13, Phường Thanh Khê Đông, Quận Thanh Khê, Đà Nẵng",
+      "user_id": "1",
+      "created_at": "2025-04-29",
+      "updated_at": "2025-04-29"
+    },
+    {
+      "id": "bbd5",
+      "img": "anhdn.jpg",
+      "name": "Chat gbt",
+      "description": "phim ma",
+      "hourly_rental_fee": 9000,
+      "address": "89 Điện Biên Phủ, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+      "user_id": "1",
+      "created_at": "2025-04-29",
+      "updated_at": "2025-04-29"
+    }
+  ],
+  "provinces": [
+    {
+      "id": "01",
+      "name": "Hà Nội"
+    },
+    {
+      "id": "48",
+      "name": "Đà Nẵng"
+    },
+    {
+      "id": "79",
+      "name": "TP. Hồ Chí Minh"
+    }
+  ],
+  "districts": [
+    {
+      "id": "001",
+      "name": "Quận Ba Đình",
+      "province_id": "01"
+    },
+    {
+      "id": "002",
+      "name": "Quận Hoàn Kiếm",
+      "province_id": "01"
+    },
+    {
+      "id": "760",
+      "name": "Quận Hải Châu",
+      "province_id": "48"
+    },
+    {
+      "id": "761",
+      "name": "Quận Thanh Khê",
+      "province_id": "48"
+    },
+    {
+      "id": "769",
+      "name": "Quận 1",
+      "province_id": "79"
+    },
+    {
+      "id": "770",
+      "name": "Quận 3",
+      "province_id": "79"
+    }
+  ],
+  "wards": [
+    {
+      "id": "00001",
+      "name": "Phường Phúc Xá",
+      "district_id": "001"
+    },
+    {
+      "id": "00004",
+      "name": "Phường Trúc Bạch",
+      "district_id": "001"
+    },
+    {
+      "id": "00007",
+      "name": "Phường Hàng Mã",
+      "district_id": "002"
+    },
+    {
+      "id": "00010",
+      "name": "Phường Hàng Bông",
+      "district_id": "002"
+    },
+    {
+      "id": "26830",
+      "name": "Phường Hải Châu I",
+      "district_id": "760"
+    },
+    {
+      "id": "26833",
+      "name": "Phường Hải Châu II",
+      "district_id": "760"
+    },
+    {
+      "id": "26836",
+      "name": "Phường Thanh Khê Đông",
+      "district_id": "761"
+    },
+    {
+      "id": "26839",
+      "name": "Phường Thanh Khê Tây",
+      "district_id": "761"
+    },
+    {
+      "id": "27685",
+      "name": "Phường Bến Nghé",
+      "district_id": "769"
+    },
+    {
+      "id": "27688",
+      "name": "Phường Bến Thành",
+      "district_id": "769"
+    },
+    {
+      "id": "27691",
+      "name": "Phường Tân Định",
+      "district_id": "770"
+    },
+    {
+      "id": "27694",
+      "name": "Phường Cầu Ông Lãnh",
+      "district_id": "770"
+    }
+  ]
+}

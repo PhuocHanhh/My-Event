@@ -1,0 +1,300 @@
+{
+    "event": [
+        {
+            "id": 101,
+            "name": "Hội nghị doanh nghiệp",
+            "image": "assets/img/events/sk2.jpg",
+            "description": "Hội nghị chuyên nghiệp dành cho doanh nghiệp.",
+            "guests": 200,
+            "location": "Khách sạn InterContinental",
+            "type": 1,
+            "images": [
+                "assets/img/events/sk2.jpg",
+                "assets/img/events/sk2-1.jpg"
+            ],
+            "timeline": [
+                "9:00 - Khai mạc",
+                "10:00 - Thảo luận",
+                "12:00 - Kết thúc"
+            ],
+            "equipment": [
+                {
+                    "name": "Máy chiếu",
+                    "image": "assets/img/device/projector.jpg",
+                    "description": "Máy chiếu Full HD",
+                    "supplier": "Công ty ABC",
+                    "quantity": 2,
+                    "unitPrice": 500000
+                }
+            ],
+            "staff": [
+                {
+                    "name": "MC chuyên nghiệp",
+                    "image": "assets/img/services/mc.jpg",
+                    "description": "Dẫn chương trình chuyên nghiệp",
+                    "supplier": "Công ty XYZ",
+                    "quantity": 1,
+                    "unitPrice": 1000000
+                }
+            ],
+            "locations": [
+                {
+                    "name": "Khách sạn InterContinental",
+                    "image": "assets/img/location/hoinghi.jpg",
+                    "supplier": "InterContinental",
+                    "fromDate": "2025-06-01",
+                    "toDate": "2025-06-01",
+                    "unitPrice": 5000000
+                }
+            ]
+        },
+        {
+            "id": 102,
+            "name": "Lễ cưới Hoàng Gia",
+            "image": "assets/img/events/sk1.jpg",
+            "description": "Lễ cưới sang trọng theo phong cách hoàng gia.",
+            "guests": 500,
+            "location": "Nhà hàng Diamond",
+            "type": 2,
+            "images": [
+                "assets/img/events/sk1.jpg",
+                "assets/img/events/sk1-1.jpg"
+            ],
+            "timeline": [
+                "18:00 - Đón khách",
+                "19:00 - Lễ cưới",
+                "21:00 - Tiệc tối"
+            ],
+            "equipment": [
+                {
+                    "name": "Đèn sân khấu",
+                    "image": "assets/img/device/densk.png",
+                    "description": "Hệ thống đèn LED hiện đại",
+                    "supplier": "Công ty XYZ",
+                    "quantity": 4,
+                    "unitPrice": 300000
+                }
+            ],
+            "staff": [
+                {
+                    "name": "Ca sĩ biểu diễn",
+                    "image": "assets/img/services/casi.png",
+                    "description": "Biểu diễn trong lễ cưới",
+                    "supplier": "Công ty ABC",
+                    "quantity": 1,
+                    "unitPrice": 2000000
+                }
+            ],
+            "locations": [
+                {
+                    "name": "Nhà hàng Diamond",
+                    "image": "assets/img/location/nhahang.jpg",
+                    "supplier": "Diamond Group",
+                    "fromDate": "2025-07-15",
+                    "toDate": "2025-07-15",
+                    "unitPrice": 10000000
+                }
+            ]
+        },
+        {
+            "id": 103,
+            "name": "Rock Festival 2025",
+            "image": "assets/img/events/sk3.jpg",
+            "description": "Lễ hội âm nhạc rock hoành tráng.",
+            "guests": 1000,
+            "location": "Sân vận động Mỹ Đình",
+            "type": 3,
+            "images": [
+                "assets/img/events/sk3.jpg"
+            ],
+            "timeline": [
+                "17:00 - Khởi động",
+                "19:00 - Biểu diễn chính",
+                "22:00 - Kết thúc"
+            ],
+            "equipment": [
+                {
+                    "name": "Loa JBL",
+                    "image": "assets/img/device/Loa.jpg",
+                    "description": "Loa chất lượng cao",
+                    "supplier": "Công ty ABC",
+                    "quantity": 10,
+                    "unitPrice": 1000000
+                }
+            ],
+            "staff": [],
+            "locations": [
+                {
+                    "name": "Sân vận động Mỹ Đình",
+                    "image": "assets/img/location/sanvandong.jpg",
+                    "supplier": "Ban quản lý sân",
+                    "fromDate": "2025-08-20",
+                    "toDate": "2025-08-20",
+                    "unitPrice": 20000000
+                }
+            ]
+        },
+        {
+            "id": 104,
+            "name": "Hội chợ Triển lãm",
+            "image": "assets/img/events/sk4.jpg",
+            "description": "Triển lãm công nghệ và sáng tạo.",
+            "guests": 300,
+            "location": "Trung tâm triển lãm SECC",
+            "type": 4,
+            "images": [
+                "assets/img/events/sk4.jpg"
+            ],
+            "timeline": [
+                "10:00 - Khai mạc",
+                "12:00 - Triển lãm",
+                "16:00 - Kết thúc"
+            ],
+            "equipment": [],
+            "staff": [],
+            "locations": [
+                {
+                    "name": "Trung tâm triển lãm SECC",
+                    "image": "assets/img/location/trienlam.jpg",
+                    "supplier": "SECC",
+                    "fromDate": "2025-09-10",
+                    "toDate": "2025-09-10",
+                    "unitPrice": 15000000
+                }
+            ]
+        },
+        {
+            "id": 105,
+            "name": "Hội thảo Khởi nghiệp",
+            "image": "assets/img/events/sk3.jpg",
+            "description": "Hội thảo dành cho các startup và nhà đầu tư.",
+            "guests": 150,
+            "location": "Trung tâm Hội nghị Quốc gia",
+            "type": 1,
+            "images": [
+              "assets/img/events/sk2.jpg",
+              "assets/img/events/sk3.jpg"
+            ],
+            "timeline": [
+              "8:30 - Đón khách",
+              "9:00 - Bắt đầu hội thảo",
+              "11:30 - Giao lưu & Kết thúc"
+            ],
+            "equipment": [
+              {
+                "name": "Micro không dây",
+                "image": "assets/img/device/micro.jpg",
+                "description": "Micro chất lượng cao cho hội thảo",
+                "supplier": "Công ty ABC",
+                "quantity": 3,
+                "unitPrice": 200000
+              }
+            ],
+            "staff": [
+              {
+                "name": "Người dẫn chương trình",
+                "image": "assets/img/services/mc.jpg",
+                "description": "Dẫn chương trình cho hội thảo",
+                "supplier": "Công ty XYZ",
+                "quantity": 1,
+                "unitPrice": 800000
+              }
+            ],
+            "locations": [
+              {
+                "name": "Trung tâm Hội nghị Quốc gia",
+                "image": "assets/img/location/trungtam.jpg",
+                "supplier": "TT Hội nghị Quốc gia",
+                "fromDate": "2025-10-05",
+                "toDate": "2025-10-05",
+                "unitPrice": 7000000
+              }
+            ]
+          }          
+    ],
+    "devices": [
+        {
+            "id": 1,
+            "name": "Loa JBL",
+            "image": "assets/img/device/Loa.jpg",
+            "description": "Loa chất lượng cao cho sự kiện.",
+            "hourly_rental_fee": 100000,
+            "quantity": 10,
+            "place": "Hà Nội",
+            "create_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-03-01T00:00:00Z",
+            "device_type_id": 1,
+            "user_id": 1
+        },
+        {
+            "id": 2,
+            "name": "Đèn sân khấu",
+            "image": "assets/img/device/densk.png",
+            "description": "Hệ thống đèn LED hiện đại.",
+            "hourly_rental_fee": 50000,
+            "quantity": 20,
+            "place": "TP. HCM",
+            "create_at": "2024-02-01T00:00:00Z",
+            "updated_at": "2024-04-01T00:00:00Z",
+            "device_type_id": 2,
+            "user_id": 2
+        }
+    ],
+    "services": [
+        {
+            "id": 1,
+            "name": "MC chuyên nghiệp",
+            "image": "assets/img/services/mc.jpg",
+            "description": "Dịch vụ MC dẫn chương trình chuyên nghiệp.",
+            "hourly_salary": 200000,
+            "quantity": 5,
+            "place": "Hà Nội",
+            "create_at": "2024-01-15T00:00:00Z",
+            "updated_at": "2024-03-15T00:00:00Z",
+            "user_id": 1
+        },
+        {
+            "id": 2,
+            "name": "Ca sĩ biểu diễn",
+            "image": "assets/img/services/casi.png",
+            "description": "Cung cấp ca sĩ nổi tiếng cho sự kiện.",
+            "hourly_salary": 500000,
+            "quantity": 3,
+            "place": "TP. HCM",
+            "create_at": "2024-02-15T00:00:00Z",
+            "updated_at": "2024-04-15T00:00:00Z",
+            "user_id": 2
+        }
+    ],
+    "locations": [
+        {
+            "id": 1,
+            "name": "Trung tâm hội nghị A",
+            "image": "assets/img/location/hoinghi.jpg",
+            "description": "Trung tâm hội nghị hiện đại, sức chứa 500 người.",
+            "hourly_rental_fee": 1000000,
+            "create_at": "2024-01-10T00:00:00Z",
+            "updated_at": "2024-02-10T00:00:00Z",
+            "user_id": 1
+        },
+        {
+            "id": 2,
+            "name": "Nhà hàng sang trọng B",
+            "image": "assets/img/location/nhahang.jpg",
+            "description": "Không gian rộng rãi, phù hợp tổ chức tiệc cưới.",
+            "hourly_rental_fee": 1500000,
+            "create_at": "2024-01-20T00:00:00Z",
+            "updated_at": "2024-03-20T00:00:00Z",
+            "user_id": 2
+        }
+    ],
+    "device_types": [
+        { "id": 1, "name": "Âm thanh", "create_at": "2024-01-01T00:00:00Z", "updated_at": "2024-01-01T00:00:00Z" },
+        { "id": 2, "name": "Ánh sáng", "create_at": "2024-01-01T00:00:00Z", "updated_at": "2024-01-01T00:00:00Z" }
+    ],
+    "users": [
+        { "id": 1, "name": "Công ty ABC", "role": "Nhà cung cấp" },
+        { "id": 2, "name": "Công ty XYZ", "role": "Nhà cung cấp" }
+    ]
+    
+}

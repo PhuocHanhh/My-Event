@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <div class="auth-right">
+                <button type="button" class="btn-back" onclick="goBack()" title="Quay lại">
+                    <i class="bi bi-box-arrow-left"></i>
+                </button>
+                <h2>ĐĂNG KÝ</h2>
+                <div id="alertBox" class="alert d-none" role="alert"></div>
+
+                <!-- Form đăng ký -->
+                <form id="registerForm" style="display: block;">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Họ</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tên</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Số điện thoại</label>
+                        <input type="tel" class="form-control" id="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password" required
+                                minlength="8" placeholder="Mật khẩu (ít nhất 8 ký tự)"
+                                oninvalid="this.setCustomValidity('Mật khẩu phải có ít nhất 8 ký tự.')"
+                                oninput="this.setCustomValidity('')">
+                            <span class="input-group-text" onclick="togglePassword('password', 'eyeIcon1')">
+                                <i class="bi bi-eye-slash" id="eyeIcon1"></i>
+                            </span>
+                        </div>
+                        <div id="passwordError" class="text-danger" style="display: none;"></div>
+                    </div>
+                    <button type="submit" class="btn w-100">ĐĂNG KÝ</button>
+                </form>
+
+                <!-- Form xác thực mã -->
+                <form id="verifyForm" style="display: none;">
+                    <div class="mb-3">
+                        <label class="form-label text-center d-block">Nhập mã xác thực từ email</label>
+                        <div class="verification-inputs">
+                            <input type="text" class="form-control verification-input" id="code1" maxlength="1" required
+                                oninvalid="this.setCustomValidity('Vui lòng nhập mã')"
+                                oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control verification-input" id="code2" maxlength="1" required
+                                oninvalid="this.setCustomValidity('Vui lòng nhập mã')"
+                                oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control verification-input" id="code3" maxlength="1" required
+                                oninvalid="this.setCustomValidity('Vui lòng nhập mã')"
+                                oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control verification-input" id="code4" maxlength="1" required
+                                oninvalid="this.setCustomValidity('Vui lòng nhập mã')"
+                                oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control verification-input" id="code5" maxlength="1" required
+                                oninvalid="this.setCustomValidity('Vui lòng nhập mã')"
+                                oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control verification-input" id="code6" maxlength="1" required
+                                oninvalid="this.setCustomValidity('Vui lòng nhập mã')"
+                                oninput="this.setCustomValidity('')">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn w-100">XÁC NHẬN</button>
+                </form>
+
+                <p class="text-center mt-3" style="color: #718355;">
+                    Đã có tài khoản? <a href="login.html" class="text">Đăng nhập</a>
+                </p>
+            </div>
+            <div class="auth-left">
+                <h2>Chào mừng thành viên mới!</h2>
+                <p>Hãy cùng chúng tôi tạo nên những sự kiện tuyệt vời nhé !</p>
+                <img src="assets/img/logo/logo1.png" alt="MyEvent Logo">
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/register.js"></script>
+    
+</body>
+
+</html>

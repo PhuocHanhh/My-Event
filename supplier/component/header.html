@@ -1,0 +1,82 @@
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <style>
+        /* Tùy chỉnh dropdown menu */
+        .profile-dropdown {
+            min-width: 250px !important;
+            background-color: #718355 !important;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        .profile-dropdown .dropdown-item {
+            padding: 12px 20px !important;
+            color: white !important;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .profile-dropdown .dropdown-item:hover {
+            background-color: transparent !important;
+            color: #718355 !important;
+        }
+
+        .profile-dropdown .dropdown-item:hover::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 10px;
+            right: 10px;
+            bottom: 6px;
+            background-color: #fff;
+            border-radius: 8px;
+            z-index: -1;
+        }
+
+        .profile-dropdown .dropdown-item:hover i {
+            color: #718355 !important;
+        }
+
+        .profile-dropdown .dropdown-item i {
+            color: white !important;
+            margin-right: 10px;
+        }
+
+
+        
+    </style>
+
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+        <a href="home.html" class="logo d-flex align-items-center">
+            <h1 class="sitename">My<span>Event</span></h1>
+        </a>
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="home.html" id="home-link">TRANG CHỦ</a></li>
+                <li><a href="service.html" id="service-link">DỊCH VỤ SỰ KIỆN</a></li>
+                <li><a href="about.html" id="about-link">GIỚI THIỆU</a></li>
+            </ul>
+        </nav>
+        <div class="header-right d-flex justify-content-end" style="margin-right: 25px;">
+            <a href="login.html" id="login-btn" class="btn" style="background-color: #718355; color: #fff; white-space: nowrap; margin-right: -100px;">Đăng Nhập</a>
+            <nav class="header-nav ms-auto" id="user-menu" style="display: none;">
+                <ul class="d-flex align-items-center px-7">
+                    <li class="nav-item dropdown pe-3">
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" style="margin-right: -100px; margin-top: 10px;">
+                            <img id="user-avatar" src="/fe-event-management/client/assets/img/avatar/avt.jpg" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px;">
+                            <span id="user-name" class="d-none d-md-block dropdown-toggle ps-2"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
+                            <li><a class="dropdown-item d-flex align-items-center" href="account.html"><i class="bi bi-person-circle"></i><span>Thông tin cá nhân</span></a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="device_table.html"><i class="bi bi-file-earmark-text"></i><span>Quản lý thiết bị</span></a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="service_table.html"><i class="bi bi-file-earmark-text"></i><span>Quản lý dịch vụ</span></a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="location_table.html"><i class="bi bi-file-earmark-text"></i><span>Quản lý địa điểm</span></a></li>
+                            <li><a class="dropdown-item d-flex align-items-center" href="change_password.html"><i class="bi bi-shield-lock"></i><span>Đổi mật khẩu</span></a></li>
+                            <li><a class="dropdown-item d-flex align-items-center logout-btn" href="#" id="logout-btn"><i class="bi bi-box-arrow-right"></i><span>Đăng xuất</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

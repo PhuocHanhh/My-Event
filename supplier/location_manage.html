@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>MyDevice</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Favicons -->
+    <!-- <link href="assets/img/favicon.png" rel="icon"> -->
+    <!-- <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="./assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="./assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="index-page">
+    <div id="header"></div>
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Biểu mẫu địa điểm </h1>
+        </div><!-- End Page Title -->
+
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div style="display: flex; align-items: center;">
+                        <h5 class="card-title"
+                            style="padding: 20px 0 15px 0; font-size: 18px; font-weight: 500; color: #718355; font-family: 'Poppins', sans-serif;">
+                            Biểu mẫu địa điểm</h5>
+                    </div>
+                    <!-- Biểu mẫu thiết bị -->
+                    <form>
+                        <div class="row mb-3">
+                            <label for="inputImage" class="col-sm-2 col-form-label">Chọn hình ảnh</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="picture" id="inputImage" accept="image/*"
+                                    class="d-none">
+                                <img src="assets/img/location/place.jpg" id="image"
+                                    style="height: 400px; width: 650px; padding-top: 10px;">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputName" class="col-sm-2 col-form-label">Tên địa điểm</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="name" id="inputName">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="selectCity" class="col-sm-2 col-form-label">Tỉnh thành</label>
+                            <div class="col-sm-4" style="display: flex; gap: 8px; "
+                                aria-label="Default select example">
+                                <select class="form-select " name="selectCity" id="selectCity">
+                                    <option value="">Chọn tỉnh thành</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="selectDistrict" class="col-sm-2 col-form-label">Quận/huyện</label>
+                            <div class="col-sm-4" style="display: flex; gap: 8px; "
+                                aria-label="Default select example">
+                                <select class="form-select " name="selectDistrict" id="selectDistrict">
+                                    <option value="">Chọn quận huyện</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="selectWard" class="col-sm-2 col-form-label">Phường/xã</label>
+                            <div class="col-sm-4" style="display: flex; gap: 8px; "
+                                aria-label="Default select example" >
+                                <select class="form-select " name="selectWard" id="selectWard">
+                                    <option value="">Chọn phường xã</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputStreet" class="col-sm-2 col-form-label">Số nhà, tên đường cụ thể</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="inputStreet" id="inputStreet">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputDescription" class="col-sm-2 col-form-label">Mô tả ngắn gọn</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="description" id="inputDescription">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPrice" class="col-sm-2 col-form-label">Tiền công/ngày</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="price" id="inputPrice">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <button type="button" class="btn btn-primary w-auto mx-auto fw-bold shadow"
+                                id="create">Lưu</button>
+                        </div>
+                    </form><!-- End General Form Elements -->
+                </div>
+            </div>
+        </div>
+    </main><!-- End #main -->
+
+    <div id="footer"></div>
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/supplier/assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/header.js"></script>
+    <script src ="assets/js/location.js"></script>
+
+    <!-- Script for Modal and Image Preview -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Script for Image Preview
+            document.getElementById("inputImage").addEventListener("change", function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById("image").src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

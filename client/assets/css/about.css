@@ -1,0 +1,378 @@
+/* Tiêu đề trang */
+.page-title {
+    padding: 110px 0;
+    text-align: center;
+}
+
+.page-title img {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.page-title p {
+    font-size: 20px;
+    color: var(--default-color);
+    line-height: 35px;
+
+}
+
+/* Phần Câu Chuyện Của Chúng Tôi */
+.our-story {
+    background: var(--surface-color);
+    padding: 60px 0;
+}
+
+.our-story img,
+.vision-mission img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.our-story h3,
+.vision-mission h3 {
+    font-family: var(--heading-font);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-bottom: 20px;
+}
+
+.our-story p,
+.vision-mission p {
+    font-size: 1rem;
+    color: var(--default-color);
+    margin-bottom: 20px;
+}
+
+.our-story .btn-learn-more,
+.vision-mission .btn-learn-more {
+    display: inline-block;
+    background: var(--accent-color);
+    color: var(--contrast-color);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-family: var(--nav-font);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.our-story .btn-learn-more:hover {
+    background: #87986a;
+}
+
+/* Phần Tầm Nhìn & Sứ Mệnh */
+.vision-mission {
+    background: var(--surface-color);
+    padding: 60px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .our-story img,
+    .vision-mission img {
+        margin-bottom: 20px;
+    }
+}
+
+/* Tiêu đề phần */
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-family: var(--heading-font);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    text-transform: uppercase;
+}
+
+.section-title p {
+    font-size: 1.1rem;
+    color: var(--default-color);
+}
+
+/* Phần Đội ngũ */
+.agents .member {
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.agents .member .pic {
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.agents .member .pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+}
+
+.agents .member .member-info {
+    background-color: var(--surface-color);
+    color: color-mix(in srgb, var(--default-color), transparent 20%);
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+    right: 20px;
+    padding: 15px;
+    transition: 0.5s;
+    border-radius: 8px;
+}
+
+.agents .member h4 {
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 16px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.agents .member h4::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: color-mix(in srgb, var(--default-color), transparent 60%);
+    bottom: 0;
+    left: 0;
+}
+
+.agents .member span {
+    font-style: italic;
+    display: block;
+    font-size: 13px;
+}
+
+.agents .member .social {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+.agents .member .social a {
+    transition: color 0.3s;
+    color: color-mix(in srgb, var(--default-color), transparent 70%);
+}
+
+.agents .member .social a:hover {
+    color: var(--accent-color);
+}
+
+.agents .member .social i {
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+#agents-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+#agents-container .col-custom {
+    flex: 0 0 calc(20% - 30px);
+    max-width: calc(20% - 30px);
+    position: relative;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    #agents-container .col-custom {
+        flex: 0 0 calc(50% - 30px);
+        max-width: calc(50% - 30px);
+    }
+}
+
+@media (max-width: 768px) {
+    #agents-container {
+        gap: 20px;
+    }
+
+    #agents-container .col-custom {
+        flex: 0 0 calc(100% - 20px);
+        max-width: calc(100% - 20px);
+    }
+
+    .agents .member .pic {
+        aspect-ratio: 4 / 3;
+    }
+
+    .agents .member .member-info {
+        position: static;
+        margin: 0 auto;
+        width: 90%;
+        transform: translateY(-60px);
+    }
+
+    .agents .member h4 {
+        font-size: 14px;
+    }
+
+    .agents .member span {
+        font-size: 12px;
+    }
+
+    .agents .member .social {
+        position: static;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .agents .member .social i {
+        font-size: 14px;
+        margin: 0 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .agents .member .pic {
+        aspect-ratio: 4 / 3;
+    }
+
+    .agents .member .member-info {
+        width: 95%;
+        padding: 10px;
+    }
+}
+
+/* Phần Video */
+.video-section {
+    background: var(--surface-color);
+    padding: 60px 0;
+}
+
+.video-section .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* Giữ tỷ lệ 16:9 cho video */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-section .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Phần Dịch vụ */
+.services .service-item {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    transition: background 0.3s;
+    background: var(--surface-color);
+}
+
+.services .service-item:hover {
+    background: var(--contrast-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.services .service-item i {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.services .service-item h3 {
+    font-family: var(--heading-font);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(113, 131, 85, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 30px rgba(113, 131, 85, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(113, 131, 85, 0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .page-title {
+        padding: 80px 0;
+    }
+
+    .page-title p {
+        font-size: 1rem;
+    }
+
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+
+    .agents .card-img-top {
+        height: 200px;
+    }
+
+    .agents .member .pic {
+        height: 200px;
+    }
+
+    .video-section .video-container {
+        padding-bottom: 56.25%;
+    }
+}

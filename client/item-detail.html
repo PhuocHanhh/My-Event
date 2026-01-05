@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Chi tiết - MyEvent</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome-free/css Кто там?all.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/event_detail.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <header class="py-4 text-center bg-light">
+        <h1 id="itemName" class="fw-bold">Đang tải...</h1>
+        <p id="itemDescription">Vui lòng chờ...</p>
+    </header>
+
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <img id="itemImage" src="" alt="" class="img-fluid"
+                    style="max-height: 400px; object-fit: cover; display: none;">
+            </div>
+            <div class="col-lg-6">
+                <div id="itemDetailsContainer">
+                    <ul class="list-group" id="itemDetails">
+                        <li class="list-group-item">Đang tải...</li>
+                    </ul>
+                </div>
+                <div class="mt-3" id="registerButton" style="display: none;">
+                    <button class="btn fw-bold text-white px-4 py-2 m-2" style="background-color: #718355;"
+                        onclick="checkLoginAndOpenContract()">
+                        Đăng ký ngay
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <!-- Modal chứa iframe -->
+    <div class="modal fade" id="iframeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <iframe id="contractIframe" style="width: 100%; height: 600px; border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Preloader -->
+    <!-- <div id="preloader"></div> -->
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/header.js"></script>
+
+    <script>
+        let suppliers = [];
+        let deviceTypes = [];
+        const baseImageUrl = "http://localhost:8080/event-management/api/v1/FileUpload/files/";
+
+
+        // Hàm lấy tên nhà cung cấp
+        function getSupplierName(supplierId) {
+            const supplier = suppliers.find(s => s.id === supplierId);
+            return supplier ? ` ${supplier.last_name} ${supplier.first_name} ` : "Không xác định";
+        }
+
+        // Hàm lấy tên loại thiết bị
+        function getDeviceTypeName(typeId) {
+            const type = deviceTypes.find(t => t.id === typeId);
+            return type ? type.name : "Không xác định";
+        }
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            const preloader = document.getElementById("preloader");
+            const itemDetailsContainer = document.getElementById("itemDetailsContainer");
+            const itemImage = document.getElementById("itemImage");
+            const registerButton = document.getElementById("registerButton");
+
+            const urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get("id");
+            const category = urlParams.get("category");
+
+            try {
+                id = decodeURIComponent(id).trim().toLowerCase();
+                console.log("ID sau khi giải mã:", id);
+            } catch (e) {
+                console.error("Lỗi giải mã id:", e);
+            }
+
+            if (!id || !category) {
+                document.getElementById("itemName").textContent = "Lỗi: Thiếu thông tin!";
+                document.getElementById("itemDescription").textContent = "Vui lòng quay lại trang danh sách.";
+                itemDetailsContainer.innerHTML = "";
+                preloader.style.display = "none";
+                return;
+            }
+
+            try {
+                // // Lấy danh sách nhà cung cấp
+                const suppliersResponse = await fetch("http://localhost:8080/event-management/users/manager", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token") || ""}`
+                    }
+                });
+                if (!suppliersResponse.ok) {
+                    throw new Error(`Lỗi khi lấy danh sách nhà cung cấp: ${suppliersResponse.statusText}`);
+                }
+                suppliers = await suppliersResponse.json();
+
+                // Lấy danh sách loại thiết bị
+                if (category === "device") {
+                    const deviceTypesResponse = await fetch("http://localhost:8080/event-management/deviceType/list");
+                    if (!deviceTypesResponse.ok) {
+                        throw new Error(`Lỗi khi lấy danh sách loại thiết bị: ${deviceTypesResponse.statusText}`);
+                    }
+                    deviceTypes = await deviceTypesResponse.json();
+                }
+
+                // Xác định endpoint dựa trên category
+                let endpoint;
+                if (category === "device") {
+                    endpoint = `http://localhost:8080/event-management/devices/${id}`;
+                } else if (category === "service") {
+                    endpoint = `http://localhost:8080/event-management/services/${id}`;
+                } else if (category === "location") {
+                    endpoint = `http://localhost:8080/event-management/locations/${id}`;
+                } else {
+                    throw new Error("Danh mục không hợp lệ");
+                }
+
+                // Lấy chi tiết mục
+                const itemResponse = await fetch(endpoint);
+                if (!itemResponse.ok) {
+                    throw new Error(`Lỗi khi lấy dữ liệu mục: ${itemResponse.statusText}`);
+                }
+                var b = await itemResponse.json();
+                const item = b.data;
+
+
+                if (!item) {
+                    console.warn(`Không tìm thấy ${category} với id = ${id}`);
+                    document.getElementById("itemName").textContent = "Không tìm thấy!";
+                    document.getElementById("itemDescription").textContent = `Không có ${category === "device" ? "thiết bị" : category === "service" ? "dịch vụ" : "địa điểm"} với tên ${id}.`;
+                    itemImage.style.display = "none";
+                    registerButton.style.display = "none";
+                    itemDetailsContainer.innerHTML = "";
+                } else {
+                    const itemData = Array.isArray(item) ? item[0] : item;
+                    window.selectedItem = { ...itemData, category };
+                    document.getElementById("itemName").textContent = itemData.name || "Không xác định";
+                    document.getElementById("itemDescription").textContent = itemData.description || "Không có mô tả";
+                    const imageFileName = itemData.image ? itemData.image.split('/').pop() : null;
+                    const imageUrl = imageFileName ? `${baseImageUrl}${imageFileName}` : "assets/img/default-image.jpg";
+                    itemImage.src = imageUrl;
+                    itemImage.style.display = "block";
+
+                    const detailsList = document.createElement("ul");
+                    detailsList.className = "list-group";
+                    if (category === "device") {
+                        detailsList.innerHTML = `
+                            <li class="list-group-item"><strong>Phí thuê/ngày:</strong> ${(item.hourlyRentalFee || 0).toLocaleString()} VND</li>
+                            <li class="list-group-item"><strong>Số lượng:</strong> ${item.quantity || "Không xác định"}</li>
+                            <li class="list-group-item"><strong>Loại thiết bị:</strong> ${item.deviceType_name}</li>
+                            <li class="list-group-item"><strong>Nhà cung cấp:</strong> ${getSupplierName(item.userID)}</li>
+                            <li class="list-group-item"><strong>Thành phố:</strong> ${item.place}</li>
+                        `;
+                    } else if (category === "service") {
+                        detailsList.innerHTML = `
+                            <li class="list-group-item"><strong>Lương/ngày:</strong> ${(item.hourly_salary || 0).toLocaleString()} VND</li>
+                            <li class="list-group-item"><strong>Số lượng:</strong> ${item.quantity || "Không xác định"}</li>
+                            <li class="list-group-item"><strong>Nhà cung cấp:</strong> ${getSupplierName(item.userID)}</li>
+                            <li class="list-group-item"><strong>Thành phố:</strong> ${item.place}</li>
+                        `;
+                    } else if (category === "location") {
+                        detailsList.innerHTML = `
+                            <li class="list-group-item"><strong>Phí thuê/ngày:</strong> ${(itemData.hourly_rental_fee || 0).toLocaleString()} VND</li>
+                            <li class="list-group-item"><strong>Địa chỉ:</strong> ${(itemData.address)}</li>
+                            <li class="list-group-item"><strong>Nhà cung cấp:</strong> ${getSupplierName(itemData.userID)}</li>
+                        `;
+                    }
+                    itemDetailsContainer.innerHTML = "";
+                    itemDetailsContainer.appendChild(detailsList);
+                    registerButton.style.display = "block";
+                }
+
+                if (localStorage.getItem("openContractAfterLogin") === "true") {
+                    localStorage.removeItem("openContractAfterLogin");
+                    setTimeout(openContractModal, 0);
+                }
+            } catch (error) {
+                console.error("Lỗi khi tải dữ liệu:", error);
+                document.getElementById("itemName").textContent = "Lỗi tải dữ liệu!";
+                document.getElementById("itemDescription").textContent = "Vui lòng thử lại sau.";
+                itemDetailsContainer.innerHTML = "";
+                itemImage.style.display = "none";
+                registerButton.style.display = "none";
+            } finally {
+                // preloader.style.display = "none";
+            }
+        });
+
+        function checkLoginAndOpenContract() {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                localStorage.setItem("openContractAfterLogin", "true");
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get("id");
+                const category = urlParams.get("category");
+                localStorage.setItem("redirectAfterLogin", `item_detail.html?id=${encodeURIComponent(id)}&category=${category}`);
+                window.location.href = "login.html";
+            } else {
+                openContractModal();
+            }
+        }
+
+        function openContractModal() {
+            const iframe = document.getElementById("contractIframe");
+            iframe.src = "contract.html";
+
+            const modal = new bootstrap.Modal(document.getElementById("iframeModal"), {});
+            modal.show();
+
+            iframe.onload = function () {
+                if (window.selectedItem) {
+                    iframe.contentWindow.postMessage({
+                        type: "preloadItem",
+                        item: window.selectedItem
+                    }, "*");
+                }
+            };
+
+            window.addEventListener("message", function closeModal(event) {
+                if (event.data === "closeIframe") {
+                    modal.hide();
+                    window.removeEventListener("message", closeModal);
+                }
+            }, { once: true });
+        }
+    </script>
+</body>
+
+</html>

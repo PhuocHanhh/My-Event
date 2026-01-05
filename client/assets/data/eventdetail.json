@@ -1,0 +1,72 @@
+{
+    "name": "Sự Kiện Đặc Biệt",
+    "description": "Sự kiện của chúng tôi mang đến trải nghiệm độc đáo với nhiều hoạt động hấp dẫn.",
+    "images": [
+        "assets/img/events/sk1.jpg",
+        "assets/img/events/sk2.jpg"
+    ],
+    "timeline": [
+        { "time": "08:00", "activity": "Đón khách" },
+        { "time": "09:00", "activity": "Khai mạc" },
+        { "time": "10:30", "activity": "Workshop và Giao lưu" },
+        { "time": "12:00", "activity": "Nghỉ trưa" },
+        { "time": "14:00", "activity": "Hoạt động nhóm" },
+        { "time": "16:00", "activity": "Tổng kết và kết thúc" }
+    ],
+    "device": [
+        {
+            "image": "assets/img/events/sk4.jpg",
+            "name": "Máy Chiếu HD",
+            "description": "Máy chiếu độ phân giải cao",
+            "supplier": "Nguyễn Hồng Minh",
+            "price": 500000
+        },
+        {
+            "image": "assets/img/events/sk4.jpg",
+            "name": "Loa Âm Thanh",
+            "description": "Hệ thống loa công suất lớn",
+            "supplier": "Nguyễn Hồng Minh",
+            "price": 750000
+        },
+        {
+            "image": "assets/img/events/sk4.jpg",
+            "name": "Đèn Sân Khấu",
+            "description": "Hệ thống đèn LED chuyên nghiệp",
+            "supplier": "Nguyễn Hồng Minh",
+            "price": 400000
+        }
+    ],
+    "service": [
+        {
+            "image":"assets/img/events/sk4.jpg",
+            "name": "Nhân viên tổ chức",
+            "description": "Hỗ trợ sự kiện chuyên nghiệp",
+            "supplier": "Nguyễn Hồng Minh",
+            "price": 300000
+        },
+        {
+            "image": "assets/img/events/sk4.jpg",
+            "name": "MC dẫn chương trình",
+            "description": "MC chuyên nghiệp, hoạt náo",
+            "supplier": "Nguyễn Hồng Minh",
+            "price": 1200000
+        },
+        {
+            "image":"assets/img/events/sk4.jpg",
+            "name": "Nhóm hỗ trợ kỹ thuật",
+            "description": "Quản lý âm thanh, ánh sáng, máy chiếu",
+            "supplier": "Nguyễn Hồng Minh",
+            "price": 500000
+        }
+    ],
+    "location": [
+        {
+            "image": "assets/img/events/sk4.jpg",
+            "name": "Trung tâm Hội nghị Quốc gia",
+            "supplier": "Nguyễn Hồng Minh",
+            "start_date": "2025-04-09",
+            "end_date": "2025-04-12",
+            "price_per_day": 5000000
+        }
+    ]
+}
