@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /my-event
+
+
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/my-event-db"
+    usename: root
+    password: root
+jwt:
+  signerKey: "qqziwod2yMQH8iDEZ/893gnzz4KtX4YDKnJz7OuQ/rSjdRssiWWtynVHhmERdhs7"
+  valid-duration: 20 #in second
+  refreshable-duration: 1200 # in seconds
+google:
+  ai:
+    api:
+      key: AIzaSyDkI3tF6EVSWkBF_Reh87Ytse_ZbkS02f4
+vnpay:
+  tmn-code: 2I0A0E65
+  #  hash-secret: 0CS6330TJNJM2TEC539KYR2JTTBS0PWW
+  hash-secret: 7OYA102LDSPOS3WRMF25XKMBWWNG9F48
+  vnp-url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+  vnp-return-url: http://localhost:8080/event-management/api/v1/payment/vnpay/return
